@@ -1,0 +1,15 @@
+{
+  "name": "grains",
+  "version": "1.0.0",
+  "description": "Write a program that calculates the number of grains of wheat on a chessboard given that the number on each square doubles.",
+  "main": "grains.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "eslint": "^3.0.1",
+    "eslint-config-google": "^0.6.0"
+  }
+}

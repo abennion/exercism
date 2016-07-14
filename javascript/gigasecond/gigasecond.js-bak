@@ -1,0 +1,12 @@
+var Gigasecond = function(dateValue) {
+  this.dateValue = dateValue;
+};
+
+Gigasecond.prototype.date = function() {
+  console.log(this.dateValue);
+  var newDate = new Date(this.dateValue.getTime() + Math.pow(10, 12);
+  console.log(newDate);
+  return newDate;
+};
+
+module.exports = Gigasecond;

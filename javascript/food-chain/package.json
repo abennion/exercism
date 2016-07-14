@@ -1,0 +1,15 @@
+{
+  "name": "food-chain",
+  "version": "1.0.0",
+  "description": "Write a program that generates the lyrics of the song 'I Know an Old Lady Who Swallowed a Fly'",
+  "main": "food-chain.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "eslint": "^3.0.1",
+    "eslint-config-google": "^0.6.0"
+  }
+}

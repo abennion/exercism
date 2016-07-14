@@ -1,0 +1,25 @@
+var Robot = function() {};
+
+Robot.prototype = {
+  get name() {
+    if (typeof this.myName === 'undefined')
+      this.reset();
+    return this.myName;
+  }
+};
+
+Robot.prototype.reset = function() {
+  var letters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+  var d = new Date().getTime();
+  
+  var name = 'xxyyy'.replace(/[xy]/g, function(c) {
+    max = (c == 'x') ? 26 : 10;
+    r = (d + Math.random() * max) % max | 0;
+    d = Math.floor(d/16);
+    return (c == 'x') ? letters.charAt(r) : r.toString(); 
+  });
+
+  this.myName = name;
+};
+
+module.exports = Robot;
