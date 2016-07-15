@@ -1,0 +1,48 @@
+var Clock = function(hour, minute) {
+  minute = (typeof minute === 'undefined') ? 0 : minute;
+  this.plus((hour * 60) + minute);
+};
+
+Object.defineProperty(Clock.prototype, "hour", {
+  get: function hour() {
+    var h = this.minutes / 60 | 0;
+    var m = (this.minutes < 0) ? this.minutes - (h * 60) : this.minutes;
+    h = (m < 0) ? h - 1 : h;
+    h %= 24;
+    return (h < 0) ? 24 + h : h;
+  }
+});
+
+Object.defineProperty(Clock.prototype, "minute", {
+  get: function minute() {
+    var m = this.minutes % 60;
+    return (m < 0) ? 60 + m : m;
+  }
+});
+
+Clock.prototype.equals = function(clock) {
+  return this.hour === clock.hour &&
+    this.minute === clock.minute;
+};
+
+Clock.prototype.toString = function() {
+  return ('00' + this.hour).slice(-2) + ':' + ('00' + this.minute).slice(-2);
+};
+
+Clock.prototype.plus = function(minutes) {
+  console.log('plus(minutes): ' + minutes);
+  this.minutes = (typeof this.minutes === 'undefined') ?
+    minutes : this.minutes + minutes;
+  return this;
+};
+
+Clock.prototype.minus = function(m) {
+  this.plus(-1 * m);
+  return this;
+};
+
+Clock.at = function(hour, minute) {
+  return new Clock(hour, minute);
+};
+
+module.exports = Clock;
