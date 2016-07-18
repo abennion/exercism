@@ -1,0 +1,15 @@
+{
+  "name": "roman-numerals",
+  "version": "1.0.0",
+  "description": "Write a function to convert from normal numbers to Roman Numerals: e.g.",
+  "main": "roman-numerals.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "eslint": "^3.0.1",
+    "eslint-config-google": "^0.6.0"
+  }
+}

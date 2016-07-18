@@ -1,28 +1,16 @@
-module.exports = i => {
-  /*
-    I : 1 to 3
-    V : 4 to 8
-    X : 9 to 13
-    L :  
+const numerals = {
+  1: 'I', 4: 'IV', 5: 'V', 9: 'IX', 10: 'X', 40: 'XL', 50: 'L',
+  90: 'XC', 100: 'C', 400: 'CD', 500: 'D', 900: 'CM', 1000: 'M'
+};
 
-    divided by 10
-    divided by 50
-    divided by 100
-    ...
-
-
-  */
-
-  let digits = Array.from(i.toString());
-  return digits.map((d, i) => {
-    console.log('d: ' + d + ', i: ' + i + ', l: ' + digits.length);
-    switch (digits.length) {
-      // 0 - 9
-      case 1:
-        
-        // 9
-        // 1 - 3
-        // 4 - 8
-    }
-  }, digits.length).join('');
+module.exports = number => {
+  return Object.keys(numerals).sort((a, b) => a - b)
+  .reverse().reduce((prevVal, elem) => {
+    let numeral = parseInt(elem, 10);
+    let x = prevVal.number / numeral | 0;
+    prevVal.number -= x * numeral;
+    while (x--)
+      prevVal.result += numerals[numeral];
+    return prevVal;
+  }, {result: '', number: number}).result;
 };
