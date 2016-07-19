@@ -1,47 +1,31 @@
 'use strict';
-
-function bufferEmptyException() { 
-  return new Error('Buffer is empty.');
-}
-
-function bufferFullException() {
-  return new Error('Buffer is full.');
-}
-
-function circularBuffer(size) {
-  const buffer = new Array();
-  
-  function isEmpty() {
-    return buffer.length === 0;
-  };
-
-  function isFull() {
-    return buffer.length > size - 1;
-  };
+exports.bufferEmptyException = () => new Error('Buffer is empty.');
+exports.bufferFullException = () => new Error('Buffer is full.');
+exports.circularBuffer = size => {
+  const buffer = [];
+  let isEmpty = () => buffer.length === 0;
+  let isFull = () => buffer.length > size - 1;
 
   return {
-    clear: () => { buffer.length = 0; },
-    write: (value) => {
+    clear: () => {
+      buffer.length = 0;
+    },
+    write: value => {
       if (value) {
-        if (isFull()) 
-          throw bufferFullException();
+        if (isFull())
+          throw exports.bufferFullException();
         buffer.unshift(value);
       }
     },
-    forceWrite: (value) => {
-      // overwrite oldest item in full buffer...
+    forceWrite: value => {
+      if (isFull())
+        buffer.pop();
+      buffer.unshift(value);
     },
     read: () => {
-      console.log('buffer: ' + buffer.join(' '));
       if (isEmpty())
-        throw bufferEmptyException();
+        throw exports.bufferEmptyException();
       return buffer.pop();
     }
   };
-}
-
-module.exports = {
-  circularBuffer,
-  bufferEmptyException,
-  bufferFullException
-}
+};
