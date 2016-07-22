@@ -1,0 +1,15 @@
+{
+  "name": "series",
+  "version": "1.0.0",
+  "description": "Write a program that will take a string of digits and give you all the contiguous substrings of length `n` in that string.",
+  "main": "series.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "eslint": "^3.1.1",
+    "eslint-config-google": "^0.6.0"
+  }
+}
