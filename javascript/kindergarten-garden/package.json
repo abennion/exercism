@@ -1,0 +1,15 @@
+{
+  "name": "kindergarten-garden",
+  "version": "1.0.0",
+  "description": "Write a program that, given a diagram, can tell you which plants each child in the kindergarten class is responsible for.",
+  "main": "kindergarten-garden.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "eslint": "^3.1.1",
+    "eslint-config-google": "^0.6.0"
+  }
+}
