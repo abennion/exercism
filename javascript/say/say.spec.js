@@ -6,7 +6,7 @@ describe('say', function () {
     expect(say.inEnglish(0)).toBe('zero');
   });
 
-  xit('one', function () {
+  it('one', function () {
     expect(say.inEnglish(1)).toBe('one');
   });
 
@@ -46,16 +46,16 @@ describe('say', function () {
     expect(say.inEnglish(1000002)).toBe('one million two');
   });
 
-  xit('one million two thousand three hundred forty-five', function () {
+  it('one million two thousand three hundred forty-five', function () {
     expect(say.inEnglish(1002345))
       .toBe('one million two thousand three hundred forty-five');
   });
 
-  xit('one billion', function () {
+  it('one billion', function () {
     expect(say.inEnglish(1000000000)).toBe('one billion');
   });
 
-  xit('a really big number', function () {
+  it('a really big number', function () {
     var expected = 'nine hundred eighty-seven billion ';
     expected += 'six hundred fifty-four million ';
     expected += 'three hundred twenty-one thousand ';
@@ -63,13 +63,13 @@ describe('say', function () {
     expect(say.inEnglish(987654321123)).toBe(expected);
   });
 
-  xit('raises an error below zero', function () {
+  it('raises an error below zero', function () {
     expect(function () {
       say.inEnglish(-1);
     }).toThrow(new Error('Number must be between 0 and 999,999,999,999.'));
   });
 
-  xit('raises an error above 999,999,999,999', function () {
+  it('raises an error above 999,999,999,999', function () {
     expect(function () {
       say.inEnglish(1000000000000);
     }).toThrow(new Error('Number must be between 0 and 999,999,999,999.'));
