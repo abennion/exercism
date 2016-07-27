@@ -10,39 +10,39 @@ describe('say', function () {
     expect(say.inEnglish(1)).toBe('one');
   });
 
-  xit('fourteen', function () {
+  it('fourteen', function () {
     expect(say.inEnglish(14)).toBe('fourteen');
   });
 
-  xit('twenty', function () {
+  it('twenty', function () {
     expect(say.inEnglish(20)).toBe('twenty');
   });
 
-  xit('twenty-two', function () {
+  it('twenty-two', function () {
     expect(say.inEnglish(22)).toBe('twenty-two');
   });
 
-  xit('one hundred', function () {
+  it('one hundred', function () {
     expect(say.inEnglish(100)).toBe('one hundred');
   });
 
-  xit('one hundred twenty-three', function () {
+  it('one hundred twenty-three', function () {
     expect(say.inEnglish(123)).toBe('one hundred twenty-three');
   });
 
-  xit('one thousand', function () {
+  it('one thousand', function () {
     expect(say.inEnglish(1000)).toBe('one thousand');
   });
 
-  xit('one thousand two hundred thirty-four', function () {
+  it('one thousand two hundred thirty-four', function () {
     expect(say.inEnglish(1234)).toBe('one thousand two hundred thirty-four');
   });
 
-  xit('one million', function () {
+  it('one million', function () {
     expect(say.inEnglish(1000000)).toBe('one million');
   });
 
-  xit('one million two', function () {
+  it('one million two', function () {
     expect(say.inEnglish(1000002)).toBe('one million two');
   });
 
