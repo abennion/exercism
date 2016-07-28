@@ -1,0 +1,50 @@
+'use strict';
+module.exports = class CustomSet {
+  constructor(set) {
+    this.set = set;
+  }
+
+  empty() {
+    return this.length === 0;
+  }
+
+  contains(set) {
+
+  }
+
+  subset(set) {
+
+  }
+
+  disjoint(set) {
+
+  }
+
+  eql(set) {
+
+  }
+
+  intersection(set) {
+
+  }
+
+  union(set) {
+
+  }
+
+  delete(set) {
+
+  }
+
+  clear() {
+
+  }
+
+  size() {
+
+  }
+
+  toList() {
+
+  }
+};

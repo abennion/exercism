@@ -1,0 +1,21 @@
+'use strict';
+module.exports = function(set) {
+  this.set = (typeof set !== 'undefined') ? set : [];
+
+  return {
+    empty: () => this.set.length  === 0,
+    contains: (item) => this.set.filter(e => e === item).length > 0,
+    subset: (set) => set.filter(a => {
+      // if not in there, return a value
+      return this.set.filter(b => b === a).length === 0
+    }).length > 0,
+    disjoint: (set) => false,
+    eql: (set) => false,
+    intersection: (set) => false,
+    union: (set) => [],
+    delete: (set) => [],
+    clear: () => [],
+    size: () => 0,
+    toList: () => []
+  }
+};
