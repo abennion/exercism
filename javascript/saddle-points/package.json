@@ -1,0 +1,15 @@
+{
+  "name": "saddle-points",
+  "version": "1.0.0",
+  "description": "Write a program that detects saddle points in a matrix.",
+  "main": "saddle-points.spec.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "eslint": "^3.1.1",
+    "eslint-config-google": "^0.6.0"
+  }
+}
