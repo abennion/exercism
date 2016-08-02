@@ -1,7 +1,4 @@
 /*
-r = require('./ocr-numbers');
-
-describe('ocr', function () {
 
   it('recognizes zero', function () {
     expect(ocr.convert(
@@ -22,9 +19,17 @@ describe('ocr', function () {
   });
 */
 'use strict';
-module.exports = class() {
-  get convert(s) {
-    return '';
-  }
-};
+const m = {
+  0: ' _ \n| |\n|_|\n   '
+}
 
+module.exports = class {
+  static convert(s) {
+    Object.keys(m).forEach(e => {
+      console.log('s: `' + s + '`, m[e]: `' + m[e] + '`')
+      if (m[e] === s)
+        return e;
+    });
+    return false;
+  } 
+};
