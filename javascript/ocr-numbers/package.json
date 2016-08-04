@@ -1,0 +1,15 @@
+{
+  "name": "ocr-numbers",
+  "version": "1.0.0",
+  "description": "Write a program that, given a 3 x 4 grid of pipes, underscores, and spaces, can determine which number is represented, or whether it is garbled.",
+  "main": "ocr-numbers.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "eslint": "^3.2.2",
+    "eslint-config-google": "^0.6.0"
+  }
+}
