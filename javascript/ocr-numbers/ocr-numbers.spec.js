@@ -2,7 +2,7 @@ var ocr = require('./ocr-numbers');
 
 describe('ocr', function () {
 
-  it('recognizes zero', function () {
+  xit('recognizes zero', function () {
     expect(ocr.convert(
       ' _ \n' +
       '| |\n' +
@@ -11,7 +11,7 @@ describe('ocr', function () {
     )).toBe('0');
   });
 
-  it('recognizes one', function () {
+  xit('recognizes one', function () {
     expect(ocr.convert(
       '   \n' +
       '  |\n' +
@@ -20,7 +20,7 @@ describe('ocr', function () {
     )).toBe('1');
   });
 
-  it('recognizes two', function () {
+  xit('recognizes two', function () {
     expect(ocr.convert(
       ' _ \n' +
       ' _|\n' +
@@ -29,7 +29,7 @@ describe('ocr', function () {
     )).toBe('2');
   });
 
-  it('recognizes three', function () {
+  xit('recognizes three', function () {
     expect(ocr.convert(
       ' _ \n' +
       ' _|\n' +
@@ -38,7 +38,7 @@ describe('ocr', function () {
     )).toBe('3');
   });
 
-  it('recognizes four', function () {
+  xit('recognizes four', function () {
     expect(ocr.convert(
       '   \n' +
       '|_|\n' +
@@ -47,7 +47,7 @@ describe('ocr', function () {
     )).toBe('4');
   });
 
-  it('recognizes five', function () {
+  xit('recognizes five', function () {
     expect(ocr.convert(
       ' _ \n' +
       '|_ \n' +
@@ -56,7 +56,7 @@ describe('ocr', function () {
     )).toBe('5');
   });
 
-  it('recognizes six', function () {
+  xit('recognizes six', function () {
     expect(ocr.convert(
       ' _ \n' +
       '|_ \n' +
@@ -65,7 +65,7 @@ describe('ocr', function () {
     )).toBe('6');
   });
 
-  it('recognizes seven', function () {
+  xit('recognizes seven', function () {
     expect(ocr.convert(
       ' _ \n' +
       '  |\n' +
@@ -74,7 +74,7 @@ describe('ocr', function () {
     )).toBe('7');
   });
 
-  it('recognizes eight', function () {
+  xit('recognizes eight', function () {
     expect(ocr.convert(
       ' _ \n' +
       '|_|\n' +
@@ -83,7 +83,7 @@ describe('ocr', function () {
     )).toBe('8');
   });
 
-  it('recognizes nine', function () {
+  xit('recognizes nine', function () {
     expect(ocr.convert(
       ' _ \n' +
       '|_|\n' +
@@ -92,7 +92,7 @@ describe('ocr', function () {
     )).toBe('9');
   });
 
-  it('recognizes ten', function () {
+  xit('recognizes ten', function () {
     expect(ocr.convert(
       '    _ \n' +
       '  || |\n' +
@@ -101,7 +101,7 @@ describe('ocr', function () {
     )).toBe('10');
   });
 
-  it('identifies garble', function () {
+  xit('identifies garble', function () {
     expect(ocr.convert(
       '   \n' +
       '| |\n' +
@@ -110,7 +110,7 @@ describe('ocr', function () {
     )).toBe('?');
   });
 
-  it('converts 110101100', function () {
+  xit('converts 110101100', function () {
     expect(ocr.convert(
       '       _     _        _  _ \n' +
       '  |  || |  || |  |  || || |\n' +
@@ -119,7 +119,7 @@ describe('ocr', function () {
     )).toBe('110101100');
   });
 
-  it('identifies garble mixed in', function () {
+  xit('identifies garble mixed in', function () {
     expect(ocr.convert(
       '       _     _           _ \n' +
       '  |  || |  || |     || || |\n' +
@@ -128,7 +128,7 @@ describe('ocr', function () {
     )).toBe('11?10?1?0');
   });
 
-  it('converts 1234567890', function () {
+  xit('converts 1234567890', function () {
     expect(ocr.convert(
       '    _  _     _  _  _  _  _  _ \n' +
       '  | _| _||_||_ |_   ||_||_|| |\n' +
