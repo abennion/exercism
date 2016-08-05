@@ -1,0 +1,15 @@
+{
+  "name": "two-bucket",
+  "version": "1.0.0",
+  "description": "Given two buckets of different size, write a program to demonstrate how to measure an exact number of liters.",
+  "main": "two-bucket.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "eslint": "^3.2.2",
+    "eslint-config-google": "^0.6.0"
+  }
+}
