@@ -1,0 +1,13 @@
+var _exercism$xelm$Bob$hey = function (s) {
+	return _elm_lang$core$Native_Utils.eq(
+		_elm_lang$core$String$trim(s),
+		'') ? 'Fine. Be that way!' : ((A2(_elm_lang$core$String$any, _elm_lang$core$Char$isUpper, s) && _elm_lang$core$Native_Utils.eq(
+		_elm_lang$core$String$toUpper(s),
+		s)) ? 'Whoa, chill out!' : (_elm_lang$core$Native_Utils.eq(
+		A3(
+			_elm_lang$core$String$slice,
+			-1,
+			_elm_lang$core$String$length(s),
+			s),
+		'?') ? 'Sure.' : 'Whatever.'));
+};
