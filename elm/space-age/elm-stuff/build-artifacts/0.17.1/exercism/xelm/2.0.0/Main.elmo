@@ -1,0 +1,73 @@
+var _exercism$xelm$Main$tests = A2(
+	_elm_community$elm_test$ElmTest$suite,
+	'SpaceAge',
+	_elm_lang$core$Native_List.fromArray(
+		[
+			A2(
+			_elm_community$elm_test$ElmTest$test,
+			'age in earth years',
+			A2(
+				_elm_community$elm_test$ElmTest$assertEqual,
+				32,
+				_elm_lang$core$Basics$round(
+					A2(_exercism$xelm$SpaceAge$ageOn, _exercism$xelm$SpaceAge$Earth, 1000000000)))),
+			A2(
+			_elm_community$elm_test$ElmTest$test,
+			'age in mercury years',
+			A2(
+				_elm_community$elm_test$ElmTest$assertEqual,
+				281,
+				_elm_lang$core$Basics$round(
+					A2(_exercism$xelm$SpaceAge$ageOn, _exercism$xelm$SpaceAge$Mercury, 2134835688)))),
+			A2(
+			_elm_community$elm_test$ElmTest$test,
+			'age in venus years',
+			A2(
+				_elm_community$elm_test$ElmTest$assertEqual,
+				10,
+				_elm_lang$core$Basics$round(
+					A2(_exercism$xelm$SpaceAge$ageOn, _exercism$xelm$SpaceAge$Venus, 189839836)))),
+			A2(
+			_elm_community$elm_test$ElmTest$test,
+			'age on mars',
+			A2(
+				_elm_community$elm_test$ElmTest$assertEqual,
+				39,
+				_elm_lang$core$Basics$round(
+					A2(_exercism$xelm$SpaceAge$ageOn, _exercism$xelm$SpaceAge$Mars, 2329871239)))),
+			A2(
+			_elm_community$elm_test$ElmTest$test,
+			'age on jupiter',
+			A2(
+				_elm_community$elm_test$ElmTest$assertEqual,
+				2,
+				_elm_lang$core$Basics$round(
+					A2(_exercism$xelm$SpaceAge$ageOn, _exercism$xelm$SpaceAge$Jupiter, 901876382)))),
+			A2(
+			_elm_community$elm_test$ElmTest$test,
+			'age on saturn',
+			A2(
+				_elm_community$elm_test$ElmTest$assertEqual,
+				3,
+				_elm_lang$core$Basics$round(
+					A2(_exercism$xelm$SpaceAge$ageOn, _exercism$xelm$SpaceAge$Saturn, 3000000000)))),
+			A2(
+			_elm_community$elm_test$ElmTest$test,
+			'age on uranus',
+			A2(
+				_elm_community$elm_test$ElmTest$assertEqual,
+				1,
+				_elm_lang$core$Basics$round(
+					A2(_exercism$xelm$SpaceAge$ageOn, _exercism$xelm$SpaceAge$Uranus, 3210123456)))),
+			A2(
+			_elm_community$elm_test$ElmTest$test,
+			'age on neptune',
+			A2(
+				_elm_community$elm_test$ElmTest$assertEqual,
+				2,
+				_elm_lang$core$Basics$round(
+					A2(_exercism$xelm$SpaceAge$ageOn, _exercism$xelm$SpaceAge$Neptune, 8210123456))))
+		]));
+var _exercism$xelm$Main$main = {
+	main: _elm_community$elm_test$ElmTest$runSuite(_exercism$xelm$Main$tests)
+};

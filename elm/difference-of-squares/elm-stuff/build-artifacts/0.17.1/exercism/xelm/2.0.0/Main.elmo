@@ -1,0 +1,97 @@
+var _exercism$xelm$Main$tests = A2(
+	_elm_community$elm_test$ElmTest$suite,
+	'DifferenceOfSquares',
+	_elm_lang$core$Native_List.fromArray(
+		[
+			A2(
+			_elm_community$elm_test$ElmTest$suite,
+			'square the sum of the numbers up to the given number',
+			_elm_lang$core$Native_List.fromArray(
+				[
+					A2(
+					_elm_community$elm_test$ElmTest$test,
+					'square of sum 5',
+					A2(
+						_elm_community$elm_test$ElmTest$assertEqual,
+						225,
+						_exercism$xelm$DifferenceOfSquares$squareOfSum(5))),
+					A2(
+					_elm_community$elm_test$ElmTest$test,
+					'square of sum 10',
+					A2(
+						_elm_community$elm_test$ElmTest$assertEqual,
+						3025,
+						_exercism$xelm$DifferenceOfSquares$squareOfSum(10))),
+					A2(
+					_elm_community$elm_test$ElmTest$test,
+					'square of sum 100',
+					A2(
+						_elm_community$elm_test$ElmTest$assertEqual,
+						25502500,
+						_exercism$xelm$DifferenceOfSquares$squareOfSum(100)))
+				])),
+			A2(
+			_elm_community$elm_test$ElmTest$suite,
+			'sum the squares of the numbers up to the given number',
+			_elm_lang$core$Native_List.fromArray(
+				[
+					A2(
+					_elm_community$elm_test$ElmTest$test,
+					'sum of squares 5',
+					A2(
+						_elm_community$elm_test$ElmTest$assertEqual,
+						55,
+						_exercism$xelm$DifferenceOfSquares$sumOfSquares(5))),
+					A2(
+					_elm_community$elm_test$ElmTest$test,
+					'sum of squares 10',
+					A2(
+						_elm_community$elm_test$ElmTest$assertEqual,
+						385,
+						_exercism$xelm$DifferenceOfSquares$sumOfSquares(10))),
+					A2(
+					_elm_community$elm_test$ElmTest$test,
+					'sum of squares 100',
+					A2(
+						_elm_community$elm_test$ElmTest$assertEqual,
+						338350,
+						_exercism$xelm$DifferenceOfSquares$sumOfSquares(100)))
+				])),
+			A2(
+			_elm_community$elm_test$ElmTest$suite,
+			'subtract sum of squares from square of sums',
+			_elm_lang$core$Native_List.fromArray(
+				[
+					A2(
+					_elm_community$elm_test$ElmTest$test,
+					'difference of squares 0',
+					A2(
+						_elm_community$elm_test$ElmTest$assertEqual,
+						0,
+						_exercism$xelm$DifferenceOfSquares$difference(0))),
+					A2(
+					_elm_community$elm_test$ElmTest$test,
+					'difference of squares 5',
+					A2(
+						_elm_community$elm_test$ElmTest$assertEqual,
+						170,
+						_exercism$xelm$DifferenceOfSquares$difference(5))),
+					A2(
+					_elm_community$elm_test$ElmTest$test,
+					'difference of squares 10',
+					A2(
+						_elm_community$elm_test$ElmTest$assertEqual,
+						2640,
+						_exercism$xelm$DifferenceOfSquares$difference(10))),
+					A2(
+					_elm_community$elm_test$ElmTest$test,
+					'difference of squares 100',
+					A2(
+						_elm_community$elm_test$ElmTest$assertEqual,
+						25164150,
+						_exercism$xelm$DifferenceOfSquares$difference(100)))
+				]))
+		]));
+var _exercism$xelm$Main$main = {
+	main: _elm_community$elm_test$ElmTest$runSuite(_exercism$xelm$Main$tests)
+};

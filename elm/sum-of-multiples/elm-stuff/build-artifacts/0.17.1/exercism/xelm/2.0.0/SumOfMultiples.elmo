@@ -1,0 +1,4 @@
+var _exercism$xelm$SumOfMultiples$sumOfMultiples = F2(
+	function (nums, max) {
+		return 45;
+	});

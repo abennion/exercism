@@ -1,0 +1,26 @@
+var _exercism$xelm$Strain$keep = F2(
+	function (f, x) {
+		var _p0 = x;
+		if (_p0.ctor === '[]') {
+			return _elm_lang$core$Native_List.fromArray(
+				[]);
+		} else {
+			var _p1 = _p0._0;
+			return A2(
+				_elm_lang$core$Basics_ops['++'],
+				f(_p1) ? _elm_lang$core$Native_List.fromArray(
+					[_p1]) : _elm_lang$core$Native_List.fromArray(
+					[]),
+				A2(_exercism$xelm$Strain$keep, f, _p0._1));
+		}
+	});
+var _exercism$xelm$Strain$discard = F2(
+	function (f, x) {
+		return A2(
+			_exercism$xelm$Strain$keep,
+			function (_p2) {
+				return _elm_lang$core$Basics$not(
+					f(_p2));
+			},
+			x);
+	});
