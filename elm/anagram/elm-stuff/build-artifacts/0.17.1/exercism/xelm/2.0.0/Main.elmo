@@ -1,0 +1,249 @@
+var _exercism$xelm$Main$tests = A2(
+	_elm_community$elm_test$ElmTest$suite,
+	'Anagram',
+	_elm_lang$core$Native_List.fromArray(
+		[
+			A2(
+			_elm_community$elm_test$ElmTest$test,
+			'no matches',
+			A2(
+				_elm_community$elm_test$ElmTest$assertEqual,
+				_elm_lang$core$Native_List.fromArray(
+					[]),
+				A2(
+					_exercism$xelm$Anagram$detect,
+					'diaper',
+					_elm_lang$core$Native_List.fromArray(
+						['hello', 'world', 'zombies', 'pants'])))),
+			A2(
+			_elm_community$elm_test$ElmTest$test,
+			'detects simple anagram',
+			A2(
+				_elm_community$elm_test$ElmTest$assertEqual,
+				_elm_lang$core$Native_List.fromArray(
+					['tan']),
+				A2(
+					_exercism$xelm$Anagram$detect,
+					'ant',
+					_elm_lang$core$Native_List.fromArray(
+						['tan', 'stand', 'at'])))),
+			A2(
+			_elm_community$elm_test$ElmTest$test,
+			'does not detect false positives',
+			A2(
+				_elm_community$elm_test$ElmTest$assertEqual,
+				_elm_lang$core$Native_List.fromArray(
+					[]),
+				A2(
+					_exercism$xelm$Anagram$detect,
+					'galea',
+					_elm_lang$core$Native_List.fromArray(
+						['eagle'])))),
+			A2(
+			_elm_community$elm_test$ElmTest$test,
+			'detects multiple anagrams',
+			A2(
+				_elm_community$elm_test$ElmTest$assertEqual,
+				_elm_lang$core$Native_List.fromArray(
+					['stream', 'maters']),
+				A2(
+					_exercism$xelm$Anagram$detect,
+					'master',
+					_elm_lang$core$Native_List.fromArray(
+						['stream', 'pigeon', 'maters'])))),
+			A2(
+			_elm_community$elm_test$ElmTest$test,
+			'does not detect anagram subsets',
+			A2(
+				_elm_community$elm_test$ElmTest$assertEqual,
+				_elm_lang$core$Native_List.fromArray(
+					[]),
+				A2(
+					_exercism$xelm$Anagram$detect,
+					'good',
+					_elm_lang$core$Native_List.fromArray(
+						['dog', 'goody'])))),
+			A2(
+			_elm_community$elm_test$ElmTest$test,
+			'detects anagram',
+			A2(
+				_elm_community$elm_test$ElmTest$assertEqual,
+				_elm_lang$core$Native_List.fromArray(
+					['inlets']),
+				A2(
+					_exercism$xelm$Anagram$detect,
+					'listen',
+					_elm_lang$core$Native_List.fromArray(
+						['enlists', 'google', 'inlets', 'banana'])))),
+			A2(
+			_elm_community$elm_test$ElmTest$test,
+			'detects multiple anagrams',
+			A2(
+				_elm_community$elm_test$ElmTest$assertEqual,
+				_elm_lang$core$Native_List.fromArray(
+					['gallery', 'regally', 'largely']),
+				A2(
+					_exercism$xelm$Anagram$detect,
+					'allergy',
+					_elm_lang$core$Native_List.fromArray(
+						['gallery', 'ballerina', 'regally', 'clergy', 'largely', 'leading'])))),
+			A2(
+			_elm_community$elm_test$ElmTest$test,
+			'does not detect indentical words',
+			A2(
+				_elm_community$elm_test$ElmTest$assertEqual,
+				_elm_lang$core$Native_List.fromArray(
+					['cron']),
+				A2(
+					_exercism$xelm$Anagram$detect,
+					'corn',
+					_elm_lang$core$Native_List.fromArray(
+						['corn', 'dark', 'Corn', 'rank', 'CORN', 'cron', 'park'])))),
+			A2(
+			_elm_community$elm_test$ElmTest$test,
+			'does not detect non-anagrams with identical checksum',
+			A2(
+				_elm_community$elm_test$ElmTest$assertEqual,
+				_elm_lang$core$Native_List.fromArray(
+					[]),
+				A2(
+					_exercism$xelm$Anagram$detect,
+					'mass',
+					_elm_lang$core$Native_List.fromArray(
+						['last'])))),
+			A2(
+			_elm_community$elm_test$ElmTest$test,
+			'detects anagrams case-insensitively',
+			A2(
+				_elm_community$elm_test$ElmTest$assertEqual,
+				_elm_lang$core$Native_List.fromArray(
+					['Carthorse']),
+				A2(
+					_exercism$xelm$Anagram$detect,
+					'Orchestra',
+					_elm_lang$core$Native_List.fromArray(
+						['cashregister', 'Carthorse', 'radishes'])))),
+			A2(
+			_elm_community$elm_test$ElmTest$test,
+			'detects anagrams using case-insensitive subject',
+			A2(
+				_elm_community$elm_test$ElmTest$assertEqual,
+				_elm_lang$core$Native_List.fromArray(
+					['carthorse']),
+				A2(
+					_exercism$xelm$Anagram$detect,
+					'Orchestra',
+					_elm_lang$core$Native_List.fromArray(
+						['cashregister', 'carthorse', 'radishes'])))),
+			A2(
+			_elm_community$elm_test$ElmTest$test,
+			'detects anagrams using case-insensitve possible matches',
+			A2(
+				_elm_community$elm_test$ElmTest$assertEqual,
+				_elm_lang$core$Native_List.fromArray(
+					['Carthorse']),
+				A2(
+					_exercism$xelm$Anagram$detect,
+					'orchestra',
+					_elm_lang$core$Native_List.fromArray(
+						['cashregister', 'Carthorse', 'radishes'])))),
+			A2(
+			_elm_community$elm_test$ElmTest$test,
+			'does not detect a word as its own anagram',
+			A2(
+				_elm_community$elm_test$ElmTest$assertEqual,
+				_elm_lang$core$Native_List.fromArray(
+					[]),
+				A2(
+					_exercism$xelm$Anagram$detect,
+					'banana',
+					_elm_lang$core$Native_List.fromArray(
+						['Banana'])))),
+			A2(
+			_elm_community$elm_test$ElmTest$test,
+			'does not detect a anagram if the original word is repeated',
+			A2(
+				_elm_community$elm_test$ElmTest$assertEqual,
+				_elm_lang$core$Native_List.fromArray(
+					[]),
+				A2(
+					_exercism$xelm$Anagram$detect,
+					'go',
+					_elm_lang$core$Native_List.fromArray(
+						['go Go GO'])))),
+			A2(
+			_elm_community$elm_test$ElmTest$test,
+			'anagrams must use all letters exactly once',
+			A2(
+				_elm_community$elm_test$ElmTest$assertEqual,
+				_elm_lang$core$Native_List.fromArray(
+					[]),
+				A2(
+					_exercism$xelm$Anagram$detect,
+					'tapper',
+					_elm_lang$core$Native_List.fromArray(
+						['patter'])))),
+			A2(
+			_elm_community$elm_test$ElmTest$test,
+			'eliminates anagrams with the same checksum',
+			A2(
+				_elm_community$elm_test$ElmTest$assertEqual,
+				_elm_lang$core$Native_List.fromArray(
+					[]),
+				A2(
+					_exercism$xelm$Anagram$detect,
+					'mass',
+					_elm_lang$core$Native_List.fromArray(
+						['last'])))),
+			A2(
+			_elm_community$elm_test$ElmTest$test,
+			'detects unicode anagrams',
+			A2(
+				_elm_community$elm_test$ElmTest$assertEqual,
+				_elm_lang$core$Native_List.fromArray(
+					['ΒΓΑ', 'γβα']),
+				A2(
+					_exercism$xelm$Anagram$detect,
+					'ΑΒΓ',
+					_elm_lang$core$Native_List.fromArray(
+						['ΒΓΑ', 'ΒΓΔ', 'γβα'])))),
+			A2(
+			_elm_community$elm_test$ElmTest$test,
+			'eliminates misleading unicode anagrams',
+			A2(
+				_elm_community$elm_test$ElmTest$assertEqual,
+				_elm_lang$core$Native_List.fromArray(
+					[]),
+				A2(
+					_exercism$xelm$Anagram$detect,
+					'ΑΒΓ',
+					_elm_lang$core$Native_List.fromArray(
+						['ABΓ'])))),
+			A2(
+			_elm_community$elm_test$ElmTest$test,
+			'capital word is not own anagram',
+			A2(
+				_elm_community$elm_test$ElmTest$assertEqual,
+				_elm_lang$core$Native_List.fromArray(
+					[]),
+				A2(
+					_exercism$xelm$Anagram$detect,
+					'BANANA',
+					_elm_lang$core$Native_List.fromArray(
+						['Banana'])))),
+			A2(
+			_elm_community$elm_test$ElmTest$test,
+			'anagrams must use all letters exactly once',
+			A2(
+				_elm_community$elm_test$ElmTest$assertEqual,
+				_elm_lang$core$Native_List.fromArray(
+					[]),
+				A2(
+					_exercism$xelm$Anagram$detect,
+					'patter',
+					_elm_lang$core$Native_List.fromArray(
+						['tapper']))))
+		]));
+var _exercism$xelm$Main$main = {
+	main: _elm_community$elm_test$ElmTest$runSuite(_exercism$xelm$Main$tests)
+};

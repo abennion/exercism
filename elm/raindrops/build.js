@@ -7979,27 +7979,30 @@ var _elm_community$elm_test$ElmTest$equals = _elm_community$elm_test$ElmTest_Tes
 var _elm_community$elm_test$ElmTest$defaultTest = _elm_community$elm_test$ElmTest_Test$defaultTest;
 var _elm_community$elm_test$ElmTest$test = _elm_community$elm_test$ElmTest_Test$test;
 
-var _exercism$xelm$Raindrops$getRaindrop = F3(
-	function (num, _p0, retVal) {
-		var _p1 = _p0;
+var _exercism$xelm$Raindrops$getRaindropName = F2(
+	function (num, dropType) {
 		return _elm_lang$core$Native_Utils.eq(
-			A2(_elm_lang$core$Basics_ops['%'], num, _p1._0),
-			0) ? A2(_elm_lang$core$Basics_ops['++'], retVal, _p1._1) : retVal;
+			A2(_elm_lang$core$Basics_ops['%'], num, dropType.factor),
+			0) ? _elm_lang$core$Maybe$Just(dropType.name) : _elm_lang$core$Maybe$Nothing;
 	});
-var _exercism$xelm$Raindrops$factors = _elm_lang$core$Native_List.fromArray(
+var _exercism$xelm$Raindrops$raindropTypes = _elm_lang$core$Native_List.fromArray(
 	[
-		{ctor: '_Tuple2', _0: 3, _1: 'Pling'},
-		{ctor: '_Tuple2', _0: 5, _1: 'Plang'},
-		{ctor: '_Tuple2', _0: 7, _1: 'Plong'}
+		{name: 'Pling', factor: 3},
+		{name: 'Plang', factor: 5},
+		{name: 'Plong', factor: 7}
 	]);
 var _exercism$xelm$Raindrops$raindrops = function (num) {
-	var res = A3(
-		_elm_lang$core$List$foldl,
-		_exercism$xelm$Raindrops$getRaindrop(num),
-		'',
-		_exercism$xelm$Raindrops$factors);
+	var res = _elm_lang$core$String$concat(
+		A2(
+			_elm_lang$core$List$filterMap,
+			_exercism$xelm$Raindrops$getRaindropName(num),
+			_exercism$xelm$Raindrops$raindropTypes));
 	return _elm_lang$core$String$isEmpty(res) ? _elm_lang$core$Basics$toString(num) : res;
 };
+var _exercism$xelm$Raindrops$RaindropType = F2(
+	function (a, b) {
+		return {name: a, factor: b};
+	});
 
 var _exercism$xelm$Main$tests = A2(
 	_elm_community$elm_test$ElmTest$suite,

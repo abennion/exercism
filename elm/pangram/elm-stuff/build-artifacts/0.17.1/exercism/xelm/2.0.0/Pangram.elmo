@@ -1,0 +1,13 @@
+var _exercism$xelm$Pangram$isPangram = function (str) {
+	return function (matches) {
+		return _elm_lang$core$Native_Utils.eq(
+			_elm_lang$core$List$length(matches),
+			26);
+	}(
+		A3(
+			_elm_lang$core$Regex$find,
+			_elm_lang$core$Regex$All,
+			_elm_lang$core$Regex$caseInsensitive(
+				_elm_lang$core$Regex$regex('([a-z])(?!.*\\1)')),
+			str));
+};

@@ -1,0 +1,20 @@
+var _exercism$xelm$Anagram$isAnagram = F2(
+	function (a, b) {
+		var sort = function (_p0) {
+			return _elm_lang$core$String$fromList(
+				_elm_lang$core$List$sort(
+					_elm_lang$core$String$toList(_p0)));
+		};
+		var b = _elm_lang$core$String$toLower(b);
+		var a = _elm_lang$core$String$toLower(a);
+		return (!_elm_lang$core$Native_Utils.eq(a, b)) && _elm_lang$core$Native_Utils.eq(
+			sort(a),
+			sort(b));
+	});
+var _exercism$xelm$Anagram$detect = F2(
+	function (word, words) {
+		return A2(
+			_elm_lang$core$List$filter,
+			_exercism$xelm$Anagram$isAnagram(word),
+			words);
+	});

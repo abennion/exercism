@@ -1,0 +1,60 @@
+var _exercism$xelm$Main$square = function (x) {
+	return x * x;
+};
+var _exercism$xelm$Main$tests = A2(
+	_elm_community$elm_test$ElmTest$suite,
+	'Accumulate',
+	_elm_lang$core$Native_List.fromArray(
+		[
+			A2(
+			_elm_community$elm_test$ElmTest$test,
+			'[]] Accumulate',
+			A2(
+				_elm_community$elm_test$ElmTest$assertEqual,
+				_elm_lang$core$Native_List.fromArray(
+					[]),
+				A2(
+					_exercism$xelm$Accumulate$accumulate,
+					_exercism$xelm$Main$square,
+					_elm_lang$core$Native_List.fromArray(
+						[])))),
+			A2(
+			_elm_community$elm_test$ElmTest$test,
+			'square Accumulate',
+			A2(
+				_elm_community$elm_test$ElmTest$assertEqual,
+				_elm_lang$core$Native_List.fromArray(
+					[1, 4, 9]),
+				A2(
+					_exercism$xelm$Accumulate$accumulate,
+					_exercism$xelm$Main$square,
+					_elm_lang$core$Native_List.fromArray(
+						[1, 2, 3])))),
+			A2(
+			_elm_community$elm_test$ElmTest$test,
+			'toUpper Accumulate',
+			A2(
+				_elm_community$elm_test$ElmTest$assertEqual,
+				_elm_lang$core$Native_List.fromArray(
+					['HELLO', 'WORLD']),
+				A2(
+					_exercism$xelm$Accumulate$accumulate,
+					_elm_lang$core$String$toUpper,
+					_elm_lang$core$Native_List.fromArray(
+						['hello', 'world'])))),
+			A2(
+			_elm_community$elm_test$ElmTest$test,
+			'reverse Accumulate',
+			A2(
+				_elm_community$elm_test$ElmTest$assertEqual,
+				_elm_lang$core$Native_List.fromArray(
+					['olleh', 'dlrow']),
+				A2(
+					_exercism$xelm$Accumulate$accumulate,
+					_elm_lang$core$String$reverse,
+					_elm_lang$core$Native_List.fromArray(
+						['hello', 'world']))))
+		]));
+var _exercism$xelm$Main$main = {
+	main: _elm_community$elm_test$ElmTest$runSuite(_exercism$xelm$Main$tests)
+};

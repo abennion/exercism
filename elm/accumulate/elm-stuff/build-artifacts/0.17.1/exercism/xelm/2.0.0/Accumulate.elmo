@@ -1,0 +1,4 @@
+var _exercism$xelm$Accumulate$accumulate = F2(
+	function (f, x) {
+		return A2(_elm_lang$core$List$map, f, x);
+	});

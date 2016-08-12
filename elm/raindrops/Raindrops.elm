@@ -1,28 +1,38 @@
 module Raindrops exposing (..)
 
-import String exposing (isEmpty)
-import List exposing (foldl)
-
-factors = [ (3, "Pling")
-          , (5, "Plang")
-          , (7, "Plong")
-          ]
+import String exposing (isEmpty, concat)
+import List exposing (foldl, filterMap)
 
 
-getRaindrop : Int -> (Int, String) -> String -> String
-getRaindrop num (factor, raindrop) retVal =
-  if num % factor == 0 then
-    retVal ++ raindrop
+type alias RaindropType =
+  { name : String
+  , factor : Int
+  }
+
+
+--raindropTypes : List RaindropType
+raindropTypes =
+  [ { name = "Pling", factor = 3 }
+  , { name = "Plang", factor = 5 }
+  , { name = "Plong", factor = 7 }
+  ]
+
+
+getRaindropName : Int -> RaindropType -> Maybe String
+getRaindropName num dropType =
+  if num % dropType.factor == 0 then
+    Just dropType.name
+
   else
-    retVal
+    Nothing
 
 
 raindrops : Int -> String
 raindrops num =
   let
-    res = List.foldl (getRaindrop num) "" factors
+    res = concat (filterMap (getRaindropName num) raindropTypes)
   in
-    if String.isEmpty res then
+    if isEmpty res then
       toString num
     else
       res
