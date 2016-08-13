@@ -1,0 +1,33 @@
+var _exercism$xelm$RNATranscription$transcribe = function (nuc) {
+	var _p0 = nuc;
+	switch (_p0.valueOf()) {
+		case 'G':
+			return _elm_lang$core$Native_Utils.chr('C');
+		case 'C':
+			return _elm_lang$core$Native_Utils.chr('G');
+		case 'T':
+			return _elm_lang$core$Native_Utils.chr('A');
+		case 'A':
+			return _elm_lang$core$Native_Utils.chr('U');
+		default:
+			return _elm_lang$core$Native_Utils.chr('X');
+	}
+};
+var _exercism$xelm$RNATranscription$toRNA = function (strand) {
+	return (!_elm_lang$core$Native_Utils.eq(
+		A3(
+			_elm_lang$core$Regex$find,
+			_elm_lang$core$Regex$All,
+			_elm_lang$core$Regex$regex('[^GCTA]'),
+			strand),
+		_elm_lang$core$Native_List.fromArray(
+			[]))) ? ((!_elm_lang$core$Native_Utils.eq(
+		A3(
+			_elm_lang$core$Regex$find,
+			_elm_lang$core$Regex$All,
+			_elm_lang$core$Regex$regex('[GCTA]'),
+			strand),
+		_elm_lang$core$Native_List.fromArray(
+			[]))) ? _elm_lang$core$Result$Err('U') : _elm_lang$core$Result$Err('X')) : _elm_lang$core$Result$Ok(
+		A2(_elm_lang$core$String$map, _exercism$xelm$RNATranscription$transcribe, strand));
+};

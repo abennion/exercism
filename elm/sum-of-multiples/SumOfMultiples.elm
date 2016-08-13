@@ -1,35 +1,43 @@
 module SumOfMultiples exposing (..)
 
-{-
-module.exports = nums => {
-  this.nums = nums;
-  return {
-    to: max => {
-      let mults = {};
-      let i = 1;
-      let loop = true;
-      while (loop) {
-        loop = false;
-        for (let j = 0; j < this.nums.length; j++) {
-          let v = this.nums[j] * i;
-          if (v < max) {
-            mults[v] = v;
-            loop = true;
-          }
-        }
-        i += 1;
-      }
-      return Object.keys(mults).reduce((r, e) => r + mults[e], 0);
-    }
-  };
-};
--}
+import Set
+import List
+import Maybe
 
-getMultiples nums max =
+
+multiple : Int -> Int -> Int -> Maybe Int
+multiple max i num =
+  let
+    mult = num * i
+  in
+    if mult < max then
+      Just mult
+    else
+      Nothing
+
+
+multiples : List Int -> Int -> Int -> Set.Set Int
+multiples nums max i =
+  let
+    mults = List.filterMap (multiple max i) nums
+  in
+    if mults /= [] then
+      Set.union (Set.fromList mults) (multiples nums max (i + 1))
+    else
+      Set.empty
+
 
 sumOfMultiples : List Int -> Int -> Int
 sumOfMultiples nums max =
-  let
-    nums = 
-  in
-    List.sum nums
+  List.sum (Set.toList (multiples nums max 1))
+
+
+
+
+
+
+
+
+
+
+

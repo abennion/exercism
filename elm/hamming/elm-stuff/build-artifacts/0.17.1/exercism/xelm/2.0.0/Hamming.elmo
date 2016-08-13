@@ -1,0 +1,15 @@
+var _exercism$xelm$Hamming$distance = F2(
+	function (a, b) {
+		var distance = _elm_lang$core$List$sum(
+			A3(
+				_elm_lang$core$List$map2,
+				F2(
+					function (a, b) {
+						return _elm_lang$core$Native_Utils.eq(a, b) ? 0 : 1;
+					}),
+				_elm_lang$core$String$toList(a),
+				_elm_lang$core$String$toList(b)));
+		return (!_elm_lang$core$Native_Utils.eq(
+			_elm_lang$core$String$length(a),
+			_elm_lang$core$String$length(b))) ? _elm_lang$core$Maybe$Nothing : _elm_lang$core$Maybe$Just(distance);
+	});
