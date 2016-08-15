@@ -1,74 +1,59 @@
 var _exercism$xelm$Main$tests = A2(
 	_elm_community$elm_test$ElmTest$suite,
-	'Sum Of Multiples',
+	'RNATranscription',
 	_elm_lang$core$Native_List.fromArray(
 		[
 			A2(
 			_elm_community$elm_test$ElmTest$test,
-			'[3, 5] 15',
+			'complement of cytosine is guanine',
 			A2(
 				_elm_community$elm_test$ElmTest$assertEqual,
-				45,
-				A2(
-					_exercism$xelm$SumOfMultiples$sumOfMultiples,
-					_elm_lang$core$Native_List.fromArray(
-						[3, 5]),
-					15))),
+				_elm_lang$core$Result$Ok('G'),
+				_exercism$xelm$RNATranscription$toRNA('C'))),
 			A2(
 			_elm_community$elm_test$ElmTest$test,
-			'[7, 13, 17] 20',
+			'complement of guanine is cytosine',
 			A2(
 				_elm_community$elm_test$ElmTest$assertEqual,
-				51,
-				A2(
-					_exercism$xelm$SumOfMultiples$sumOfMultiples,
-					_elm_lang$core$Native_List.fromArray(
-						[7, 13, 17]),
-					20))),
+				_elm_lang$core$Result$Ok('C'),
+				_exercism$xelm$RNATranscription$toRNA('G'))),
 			A2(
 			_elm_community$elm_test$ElmTest$test,
-			'[4, 6] 15',
+			'complement of thymine is adenine',
 			A2(
 				_elm_community$elm_test$ElmTest$assertEqual,
-				30,
-				A2(
-					_exercism$xelm$SumOfMultiples$sumOfMultiples,
-					_elm_lang$core$Native_List.fromArray(
-						[4, 6]),
-					15))),
+				_elm_lang$core$Result$Ok('A'),
+				_exercism$xelm$RNATranscription$toRNA('T'))),
 			A2(
 			_elm_community$elm_test$ElmTest$test,
-			'[5, 6, 8] 150',
+			'complement of adenine is uracil',
 			A2(
 				_elm_community$elm_test$ElmTest$assertEqual,
-				4419,
-				A2(
-					_exercism$xelm$SumOfMultiples$sumOfMultiples,
-					_elm_lang$core$Native_List.fromArray(
-						[5, 6, 8]),
-					150))),
+				_elm_lang$core$Result$Ok('U'),
+				_exercism$xelm$RNATranscription$toRNA('A'))),
 			A2(
 			_elm_community$elm_test$ElmTest$test,
-			'[43, 47] 10000',
+			'complement',
 			A2(
 				_elm_community$elm_test$ElmTest$assertEqual,
-				2203160,
-				A2(
-					_exercism$xelm$SumOfMultiples$sumOfMultiples,
-					_elm_lang$core$Native_List.fromArray(
-						[43, 47]),
-					10000))),
+				_elm_lang$core$Result$Ok('UGCACCAGAAUU'),
+				_exercism$xelm$RNATranscription$toRNA('ACGTGGTCTTAA'))),
 			A2(
 			_elm_community$elm_test$ElmTest$test,
-			'[5, 25] 51',
+			'correctly handles completely invalid input',
 			A2(
 				_elm_community$elm_test$ElmTest$assertEqual,
-				275,
-				A2(
-					_exercism$xelm$SumOfMultiples$sumOfMultiples,
-					_elm_lang$core$Native_List.fromArray(
-						[5, 25]),
-					51)))
+				_elm_lang$core$Result$Err(
+					_elm_lang$core$Native_Utils.chr('X')),
+				_exercism$xelm$RNATranscription$toRNA('XXX'))),
+			A2(
+			_elm_community$elm_test$ElmTest$test,
+			'correctly handles partially invalid input',
+			A2(
+				_elm_community$elm_test$ElmTest$assertEqual,
+				_elm_lang$core$Result$Err(
+					_elm_lang$core$Native_Utils.chr('U')),
+				_exercism$xelm$RNATranscription$toRNA('UGAAXXXGACAUG')))
 		]));
 var _exercism$xelm$Main$main = {
 	main: _elm_community$elm_test$ElmTest$runSuite(_exercism$xelm$Main$tests)

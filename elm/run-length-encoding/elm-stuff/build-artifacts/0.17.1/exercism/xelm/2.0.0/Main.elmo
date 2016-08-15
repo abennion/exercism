@@ -1,0 +1,70 @@
+var _exercism$xelm$Main$tests = A2(
+	_elm_community$elm_test$ElmTest$suite,
+	'RunLengthEncoding',
+	_elm_lang$core$Native_List.fromArray(
+		[
+			A2(
+			_elm_community$elm_test$ElmTest$test,
+			'the solution is for the correct version of the test',
+			A2(_elm_community$elm_test$ElmTest$assertEqual, 2, _exercism$xelm$RunLengthEncoding$version)),
+			A2(
+			_elm_community$elm_test$ElmTest$test,
+			'encode simple',
+			A2(
+				_elm_community$elm_test$ElmTest$assertEqual,
+				'2A3B4C',
+				_exercism$xelm$RunLengthEncoding$encode('AABBBCCCC'))),
+			A2(
+			_elm_community$elm_test$ElmTest$test,
+			'decode simple',
+			A2(
+				_elm_community$elm_test$ElmTest$assertEqual,
+				'AABBBCCCC',
+				_exercism$xelm$RunLengthEncoding$decode('2A3B4C'))),
+			A2(
+			_elm_community$elm_test$ElmTest$test,
+			'encode with single values',
+			A2(
+				_elm_community$elm_test$ElmTest$assertEqual,
+				'12WB12W3B24WB',
+				_exercism$xelm$RunLengthEncoding$encode('WWWWWWWWWWWWBWWWWWWWWWWWWBBBWWWWWWWWWWWWWWWWWWWWWWWWB'))),
+			A2(
+			_elm_community$elm_test$ElmTest$test,
+			'decode with single values',
+			A2(
+				_elm_community$elm_test$ElmTest$assertEqual,
+				'WWWWWWWWWWWWBWWWWWWWWWWWWBBBWWWWWWWWWWWWWWWWWWWWWWWWB',
+				_exercism$xelm$RunLengthEncoding$decode('12WB12W3B24WB'))),
+			A2(
+			_elm_community$elm_test$ElmTest$test,
+			'(decode (encode (...)) combination',
+			A2(
+				_elm_community$elm_test$ElmTest$assertEqual,
+				'zzz ZZ  zZ',
+				_exercism$xelm$RunLengthEncoding$decode(
+					_exercism$xelm$RunLengthEncoding$encode('zzz ZZ  zZ')))),
+			A2(
+			_elm_community$elm_test$ElmTest$test,
+			'decode with a x10 value',
+			A2(
+				_elm_community$elm_test$ElmTest$assertEqual,
+				'WWWWWWWWWW',
+				_exercism$xelm$RunLengthEncoding$decode('10W'))),
+			A2(
+			_elm_community$elm_test$ElmTest$test,
+			'encode unicode',
+			A2(
+				_elm_community$elm_test$ElmTest$assertEqual,
+				'⏰3⚽2⭐⏰',
+				_exercism$xelm$RunLengthEncoding$encode('⏰⚽⚽⚽⭐⭐⏰'))),
+			A2(
+			_elm_community$elm_test$ElmTest$test,
+			'decode unicode',
+			A2(
+				_elm_community$elm_test$ElmTest$assertEqual,
+				'⏰⚽⚽⚽⭐⭐⏰',
+				_exercism$xelm$RunLengthEncoding$decode('⏰3⚽2⭐⏰')))
+		]));
+var _exercism$xelm$Main$main = {
+	main: _elm_community$elm_test$ElmTest$runSuite(_exercism$xelm$Main$tests)
+};

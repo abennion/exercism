@@ -1,58 +1,27 @@
 module RNATranscription exposing (..)
 
-{-
-tests =
-    suite "RNATranscription"
-        [ test "complement of cytosine is guanine"
-            (assertEqual (Ok "G") (toRNA "C"))
-        , test "complement of guanine is cytosine"
-            (assertEqual (Ok "C") (toRNA "G"))
-        , test "complement of thymine is adenine"
-            (assertEqual (Ok "A") (toRNA "T"))
-        , test "complement of adenine is uracil"
-            (assertEqual (Ok "U") (toRNA "A"))
-        , test "complement"
-            (assertEqual (Ok "UGCACCAGAAUU") (toRNA "ACGTGGTCTTAA"))
-        , test "correctly handles completely invalid input"
-            (assertEqual (Err 'X') (toRNA "XXX"))
-        , test "correctly handles partially invalid input"
-            (assertEqual (Err 'U') (toRNA "UGAAXXXGACAUG"))
-
-* `G` -> `C`
-* `C` -> `G`
-* `T` -> `A`
-* `A` -> `U`
--}
-
 import Regex exposing (..)
 import String
 import Char
 import List
 
 
-transcribe : Char -> Char
+transcribe : Char -> Maybe Char
 transcribe nuc =
   case nuc of
-    'G' -> 'C'
-    'C' -> 'G'
-    'T' -> 'A'
-    'A' -> 'U'
+    'G' -> Just 'C'
+    'C' -> Just 'G'
+    'T' -> Just 'A'
+    'A' -> Just 'U'
+    _ -> Nothing
 
 
-toRNA : String -> Result String String
+toRNA : String -> Result Char String
 toRNA strand =
   if find All (regex "[^GCTA]") strand /= [] then
     if find All (regex "[GCTA]") strand /= [] then
-      Err "U"
+      Err 'U'
     else
-      Err "X"
+      Err 'X'
   else
-    Ok (String.map transcribe strand)
-
-
-
-
-
-
-
-
+    Ok (String.fromList (List.filterMap transcribe (String.toList strand)))

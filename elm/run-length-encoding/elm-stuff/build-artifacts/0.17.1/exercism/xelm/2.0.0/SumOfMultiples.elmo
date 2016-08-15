@@ -1,0 +1,25 @@
+var _exercism$xelm$SumOfMultiples$multiple = F3(
+	function (max, i, num) {
+		var mult = num * i;
+		return (_elm_lang$core$Native_Utils.cmp(mult, max) < 0) ? _elm_lang$core$Maybe$Just(mult) : _elm_lang$core$Maybe$Nothing;
+	});
+var _exercism$xelm$SumOfMultiples$multiples = F3(
+	function (nums, max, i) {
+		var mults = A2(
+			_elm_lang$core$List$filterMap,
+			A2(_exercism$xelm$SumOfMultiples$multiple, max, i),
+			nums);
+		return (!_elm_lang$core$Native_Utils.eq(
+			mults,
+			_elm_lang$core$Native_List.fromArray(
+				[]))) ? A2(
+			_elm_lang$core$Set$union,
+			_elm_lang$core$Set$fromList(mults),
+			A3(_exercism$xelm$SumOfMultiples$multiples, nums, max, i + 1)) : _elm_lang$core$Set$empty;
+	});
+var _exercism$xelm$SumOfMultiples$sumOfMultiples = F2(
+	function (nums, max) {
+		return _elm_lang$core$List$sum(
+			_elm_lang$core$Set$toList(
+				A3(_exercism$xelm$SumOfMultiples$multiples, nums, max, 1)));
+	});

@@ -1,0 +1,7 @@
+var _exercism$xelm$RunLengthEncoding$decode = function (str) {
+	return '';
+};
+var _exercism$xelm$RunLengthEncoding$encode = function (str) {
+	return '';
+};
+var _exercism$xelm$RunLengthEncoding$version = 2;
