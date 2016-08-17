@@ -1,0 +1,32 @@
+var _exercism$xelm$NucleotideCount$version = 2;
+var _exercism$xelm$NucleotideCount$incrementCount = F2(
+	function (nuc, counts) {
+		var _p0 = nuc;
+		switch (_p0.valueOf()) {
+			case 'A':
+				return _elm_lang$core$Native_Utils.update(
+					counts,
+					{a: counts.a + 1});
+			case 'T':
+				return _elm_lang$core$Native_Utils.update(
+					counts,
+					{t: counts.t + 1});
+			case 'C':
+				return _elm_lang$core$Native_Utils.update(
+					counts,
+					{c: counts.c + 1});
+			case 'G':
+				return _elm_lang$core$Native_Utils.update(
+					counts,
+					{g: counts.g + 1});
+			default:
+				return counts;
+		}
+	});
+var _exercism$xelm$NucleotideCount$nucleotideCounts = function (dna) {
+	return A3(
+		_elm_lang$core$String$foldl,
+		_exercism$xelm$NucleotideCount$incrementCount,
+		{a: 0, t: 0, c: 0, g: 0},
+		dna);
+};

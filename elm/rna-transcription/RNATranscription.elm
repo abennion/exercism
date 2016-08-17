@@ -18,10 +18,21 @@ transcribe nuc =
 
 toRNA : String -> Result Char String
 toRNA strand =
-  if find All (regex "[^GCTA]") strand /= [] then
-    if find All (regex "[GCTA]") strand /= [] then
-      Err 'U'
-    else
-      Err 'X'
-  else
-    Ok (String.fromList (List.filterMap transcribe (String.toList strand)))
+  let
+    nuc =
+      strand
+        |> find (AtMost 1) (regex "[^GCTA]")
+        |> List.map .match
+        |> List.head
+        |> Maybe.withDefault ""
+
+    invalidNuc = case nuc /= "" of
+      True -> String.uncons nuc
+      False -> Nothing
+  in
+    case invalidNuc of
+      Just (char, rest) ->
+        Err char
+
+      Nothing ->
+        Ok (String.fromList (List.filterMap transcribe (String.toList strand)))

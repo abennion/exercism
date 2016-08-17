@@ -8168,28 +8168,39 @@ var _exercism$xelm$RNATranscription$transcribe = function (nuc) {
 	}
 };
 var _exercism$xelm$RNATranscription$toRNA = function (strand) {
-	return (!_elm_lang$core$Native_Utils.eq(
-		A3(
-			_elm_lang$core$Regex$find,
-			_elm_lang$core$Regex$All,
-			_elm_lang$core$Regex$regex('[^GCTA]'),
-			strand),
-		_elm_lang$core$Native_List.fromArray(
-			[]))) ? ((!_elm_lang$core$Native_Utils.eq(
-		A3(
-			_elm_lang$core$Regex$find,
-			_elm_lang$core$Regex$All,
-			_elm_lang$core$Regex$regex('[GCTA]'),
-			strand),
-		_elm_lang$core$Native_List.fromArray(
-			[]))) ? _elm_lang$core$Result$Err(
-		_elm_lang$core$Native_Utils.chr('U')) : _elm_lang$core$Result$Err(
-		_elm_lang$core$Native_Utils.chr('X'))) : _elm_lang$core$Result$Ok(
-		_elm_lang$core$String$fromList(
+	var nuc = A2(
+		_elm_lang$core$Maybe$withDefault,
+		'',
+		_elm_lang$core$List$head(
 			A2(
-				_elm_lang$core$List$filterMap,
-				_exercism$xelm$RNATranscription$transcribe,
-				_elm_lang$core$String$toList(strand))));
+				_elm_lang$core$List$map,
+				function (_) {
+					return _.match;
+				},
+				A3(
+					_elm_lang$core$Regex$find,
+					_elm_lang$core$Regex$AtMost(1),
+					_elm_lang$core$Regex$regex('[^GCTA]'),
+					strand))));
+	var invalidNuc = function () {
+		var _p1 = !_elm_lang$core$Native_Utils.eq(nuc, '');
+		if (_p1 === true) {
+			return _elm_lang$core$String$uncons(nuc);
+		} else {
+			return _elm_lang$core$Maybe$Nothing;
+		}
+	}();
+	var _p2 = invalidNuc;
+	if (_p2.ctor === 'Just') {
+		return _elm_lang$core$Result$Err(_p2._0._0);
+	} else {
+		return _elm_lang$core$Result$Ok(
+			_elm_lang$core$String$fromList(
+				A2(
+					_elm_lang$core$List$filterMap,
+					_exercism$xelm$RNATranscription$transcribe,
+					_elm_lang$core$String$toList(strand))));
+	}
 };
 
 var _exercism$xelm$Main$tests = A2(

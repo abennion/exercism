@@ -1,0 +1,124 @@
+var _exercism$xelm$Main$tests = A2(
+	_elm_community$elm_test$ElmTest$suite,
+	'Series',
+	_elm_lang$core$Native_List.fromArray(
+		[
+			A2(
+			_elm_community$elm_test$ElmTest$test,
+			'slices of one',
+			A2(
+				_elm_community$elm_test$ElmTest$assertEqual,
+				_elm_lang$core$Result$Ok(
+					_elm_lang$core$Native_List.fromArray(
+						[
+							_elm_lang$core$Native_List.fromArray(
+							[0]),
+							_elm_lang$core$Native_List.fromArray(
+							[1]),
+							_elm_lang$core$Native_List.fromArray(
+							[2]),
+							_elm_lang$core$Native_List.fromArray(
+							[3]),
+							_elm_lang$core$Native_List.fromArray(
+							[4])
+						])),
+				A2(_exercism$xelm$Series$slices, 1, '01234'))),
+			A2(
+			_elm_community$elm_test$ElmTest$test,
+			'slices of two',
+			A2(
+				_elm_community$elm_test$ElmTest$assertEqual,
+				_elm_lang$core$Result$Ok(
+					_elm_lang$core$Native_List.fromArray(
+						[
+							_elm_lang$core$Native_List.fromArray(
+							[9, 7]),
+							_elm_lang$core$Native_List.fromArray(
+							[7, 8]),
+							_elm_lang$core$Native_List.fromArray(
+							[8, 6]),
+							_elm_lang$core$Native_List.fromArray(
+							[6, 7]),
+							_elm_lang$core$Native_List.fromArray(
+							[7, 5]),
+							_elm_lang$core$Native_List.fromArray(
+							[5, 6]),
+							_elm_lang$core$Native_List.fromArray(
+							[6, 4])
+						])),
+				A2(_exercism$xelm$Series$slices, 2, '97867564'))),
+			A2(
+			_elm_community$elm_test$ElmTest$test,
+			'slices of three',
+			A2(
+				_elm_community$elm_test$ElmTest$assertEqual,
+				_elm_lang$core$Result$Ok(
+					_elm_lang$core$Native_List.fromArray(
+						[
+							_elm_lang$core$Native_List.fromArray(
+							[9, 7, 8]),
+							_elm_lang$core$Native_List.fromArray(
+							[7, 8, 6]),
+							_elm_lang$core$Native_List.fromArray(
+							[8, 6, 7]),
+							_elm_lang$core$Native_List.fromArray(
+							[6, 7, 5]),
+							_elm_lang$core$Native_List.fromArray(
+							[7, 5, 6]),
+							_elm_lang$core$Native_List.fromArray(
+							[5, 6, 4])
+						])),
+				A2(_exercism$xelm$Series$slices, 3, '97867564'))),
+			A2(
+			_elm_community$elm_test$ElmTest$test,
+			'slices of four',
+			A2(
+				_elm_community$elm_test$ElmTest$assertEqual,
+				_elm_lang$core$Result$Ok(
+					_elm_lang$core$Native_List.fromArray(
+						[
+							_elm_lang$core$Native_List.fromArray(
+							[0, 1, 2, 3]),
+							_elm_lang$core$Native_List.fromArray(
+							[1, 2, 3, 4])
+						])),
+				A2(_exercism$xelm$Series$slices, 4, '01234'))),
+			A2(
+			_elm_community$elm_test$ElmTest$test,
+			'slices of five',
+			A2(
+				_elm_community$elm_test$ElmTest$assertEqual,
+				_elm_lang$core$Result$Ok(
+					_elm_lang$core$Native_List.fromArray(
+						[
+							_elm_lang$core$Native_List.fromArray(
+							[0, 1, 2, 3, 4])
+						])),
+				A2(_exercism$xelm$Series$slices, 5, '01234'))),
+			A2(
+			_elm_community$elm_test$ElmTest$test,
+			'overly long slice',
+			A2(
+				_elm_community$elm_test$ElmTest$assertEqual,
+				_elm_lang$core$Result$Ok(
+					_elm_lang$core$Native_List.fromArray(
+						[])),
+				A2(_exercism$xelm$Series$slices, 4, '012'))),
+			A2(
+			_elm_community$elm_test$ElmTest$test,
+			'overly short slice',
+			A2(
+				_elm_community$elm_test$ElmTest$assertEqual,
+				_elm_lang$core$Result$Err('Invalid size: 0'),
+				A2(_exercism$xelm$Series$slices, 0, '01234'))),
+			A2(
+			_elm_community$elm_test$ElmTest$test,
+			'input has non numbers',
+			A2(
+				_elm_community$elm_test$ElmTest$assertEqual,
+				_elm_lang$core$Result$Err('could not convert string \'a\' to an Int'),
+				A2(_exercism$xelm$Series$slices, 2, '0123abc')))
+		]));
+var _exercism$xelm$Main$main = {
+	main: _elm_community$elm_test$ElmTest$runSuite(_exercism$xelm$Main$tests)
+};
