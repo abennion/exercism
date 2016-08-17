@@ -8013,11 +8013,237 @@ var _elm_community$elm_test$ElmTest$equals = _elm_community$elm_test$ElmTest_Tes
 var _elm_community$elm_test$ElmTest$defaultTest = _elm_community$elm_test$ElmTest_Test$defaultTest;
 var _elm_community$elm_test$ElmTest$test = _elm_community$elm_test$ElmTest_Test$test;
 
+//import Maybe, Native.List //
+
+var _elm_lang$core$Native_Regex = function() {
+
+function escape(str)
+{
+	return str.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&');
+}
+function caseInsensitive(re)
+{
+	return new RegExp(re.source, 'gi');
+}
+function regex(raw)
+{
+	return new RegExp(raw, 'g');
+}
+
+function contains(re, string)
+{
+	return string.match(re) !== null;
+}
+
+function find(n, re, str)
+{
+	n = n.ctor === 'All' ? Infinity : n._0;
+	var out = [];
+	var number = 0;
+	var string = str;
+	var lastIndex = re.lastIndex;
+	var prevLastIndex = -1;
+	var result;
+	while (number++ < n && (result = re.exec(string)))
+	{
+		if (prevLastIndex === re.lastIndex) break;
+		var i = result.length - 1;
+		var subs = new Array(i);
+		while (i > 0)
+		{
+			var submatch = result[i];
+			subs[--i] = submatch === undefined
+				? _elm_lang$core$Maybe$Nothing
+				: _elm_lang$core$Maybe$Just(submatch);
+		}
+		out.push({
+			match: result[0],
+			submatches: _elm_lang$core$Native_List.fromArray(subs),
+			index: result.index,
+			number: number
+		});
+		prevLastIndex = re.lastIndex;
+	}
+	re.lastIndex = lastIndex;
+	return _elm_lang$core$Native_List.fromArray(out);
+}
+
+function replace(n, re, replacer, string)
+{
+	n = n.ctor === 'All' ? Infinity : n._0;
+	var count = 0;
+	function jsReplacer(match)
+	{
+		if (count++ >= n)
+		{
+			return match;
+		}
+		var i = arguments.length - 3;
+		var submatches = new Array(i);
+		while (i > 0)
+		{
+			var submatch = arguments[i];
+			submatches[--i] = submatch === undefined
+				? _elm_lang$core$Maybe$Nothing
+				: _elm_lang$core$Maybe$Just(submatch);
+		}
+		return replacer({
+			match: match,
+			submatches: _elm_lang$core$Native_List.fromArray(submatches),
+			index: arguments[i - 1],
+			number: count
+		});
+	}
+	return string.replace(re, jsReplacer);
+}
+
+function split(n, re, str)
+{
+	n = n.ctor === 'All' ? Infinity : n._0;
+	if (n === Infinity)
+	{
+		return _elm_lang$core$Native_List.fromArray(str.split(re));
+	}
+	var string = str;
+	var result;
+	var out = [];
+	var start = re.lastIndex;
+	while (n--)
+	{
+		if (!(result = re.exec(string))) break;
+		out.push(string.slice(start, result.index));
+		start = re.lastIndex;
+	}
+	out.push(string.slice(start));
+	return _elm_lang$core$Native_List.fromArray(out);
+}
+
+return {
+	regex: regex,
+	caseInsensitive: caseInsensitive,
+	escape: escape,
+
+	contains: F2(contains),
+	find: F3(find),
+	replace: F4(replace),
+	split: F3(split)
+};
+
+}();
+
+var _elm_lang$core$Regex$split = _elm_lang$core$Native_Regex.split;
+var _elm_lang$core$Regex$replace = _elm_lang$core$Native_Regex.replace;
+var _elm_lang$core$Regex$find = _elm_lang$core$Native_Regex.find;
+var _elm_lang$core$Regex$contains = _elm_lang$core$Native_Regex.contains;
+var _elm_lang$core$Regex$caseInsensitive = _elm_lang$core$Native_Regex.caseInsensitive;
+var _elm_lang$core$Regex$regex = _elm_lang$core$Native_Regex.regex;
+var _elm_lang$core$Regex$escape = _elm_lang$core$Native_Regex.escape;
+var _elm_lang$core$Regex$Match = F4(
+	function (a, b, c, d) {
+		return {match: a, submatches: b, index: c, number: d};
+	});
+var _elm_lang$core$Regex$Regex = {ctor: 'Regex'};
+var _elm_lang$core$Regex$AtMost = function (a) {
+	return {ctor: 'AtMost', _0: a};
+};
+var _elm_lang$core$Regex$All = {ctor: 'All'};
+
+var _exercism$xelm$RunLengthEncoding$decode$$ = function (match) {
+	var $char = A2(
+		_elm_lang$core$Maybe$withDefault,
+		'',
+		_elm_lang$core$List$head(
+			A2(
+				_elm_lang$core$List$map,
+				function (_) {
+					return _.match;
+				},
+				A3(
+					_elm_lang$core$Regex$find,
+					_elm_lang$core$Regex$AtMost(1),
+					_elm_lang$core$Regex$regex('[^0-9]'),
+					match))));
+	var n = A2(
+		_elm_lang$core$Maybe$withDefault,
+		1,
+		_elm_lang$core$Result$toMaybe(
+			_elm_lang$core$String$toInt(
+				A2(
+					_elm_lang$core$Maybe$withDefault,
+					'1',
+					_elm_lang$core$List$head(
+						A2(
+							_elm_lang$core$List$map,
+							function (_) {
+								return _.match;
+							},
+							A3(
+								_elm_lang$core$Regex$find,
+								_elm_lang$core$Regex$AtMost(1),
+								_elm_lang$core$Regex$regex('[0-9]+'),
+								match)))))));
+	return A2(_elm_lang$core$String$repeat, n, $char);
+};
+var _exercism$xelm$RunLengthEncoding$decode$ = function (matches) {
+	var _p0 = matches;
+	if (_p0.ctor === '[]') {
+		return '';
+	} else {
+		return A2(
+			_elm_lang$core$Basics_ops['++'],
+			_exercism$xelm$RunLengthEncoding$decode$$(_p0._0),
+			_exercism$xelm$RunLengthEncoding$decode$(_p0._1));
+	}
+};
 var _exercism$xelm$RunLengthEncoding$decode = function (str) {
-	return '';
+	return _exercism$xelm$RunLengthEncoding$decode$(
+		A2(
+			_elm_lang$core$List$map,
+			function (_) {
+				return _.match;
+			},
+			A3(
+				_elm_lang$core$Regex$find,
+				_elm_lang$core$Regex$All,
+				_elm_lang$core$Regex$regex('([0-9]+[^0-9])|.'),
+				str)));
+};
+var _exercism$xelm$RunLengthEncoding$encode$$ = function (match) {
+	var length = _elm_lang$core$String$length(match);
+	var $char = A3(_elm_lang$core$String$slice, 0, 1, match);
+	var _p1 = _elm_lang$core$Native_Utils.cmp(length, 1) > 0;
+	if (_p1 === true) {
+		return A2(
+			_elm_lang$core$Basics_ops['++'],
+			_elm_lang$core$Basics$toString(length),
+			$char);
+	} else {
+		return $char;
+	}
+};
+var _exercism$xelm$RunLengthEncoding$encode$ = function (matches) {
+	var _p2 = matches;
+	if (_p2.ctor === '[]') {
+		return '';
+	} else {
+		return A2(
+			_elm_lang$core$Basics_ops['++'],
+			_exercism$xelm$RunLengthEncoding$encode$$(_p2._0),
+			_exercism$xelm$RunLengthEncoding$encode$(_p2._1));
+	}
 };
 var _exercism$xelm$RunLengthEncoding$encode = function (str) {
-	return '';
+	return _exercism$xelm$RunLengthEncoding$encode$(
+		A2(
+			_elm_lang$core$List$map,
+			function (_) {
+				return _.match;
+			},
+			A3(
+				_elm_lang$core$Regex$find,
+				_elm_lang$core$Regex$All,
+				_elm_lang$core$Regex$regex('([^0-9])\\1*'),
+				str)));
 };
 var _exercism$xelm$RunLengthEncoding$version = 2;
 

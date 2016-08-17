@@ -37,5 +37,5 @@ var _exercism$xelm$Triangle$triangleKind = F3(
 					_elm_lang$core$Maybe$withDefault,
 					_elm_lang$core$Native_List.fromArray(
 						[]),
-					_elm_lang$core$List$tail(tri)))) > -1) ? _elm_lang$core$Result$Err('Violates inequality') : ((_elm_lang$core$Native_Utils.eq(a, b) && _elm_lang$core$Native_Utils.eq(b, c)) ? _elm_lang$core$Result$Ok('equilateral') : ((_elm_lang$core$Native_Utils.eq(a, b) || (_elm_lang$core$Native_Utils.eq(b, c) || _elm_lang$core$Native_Utils.eq(a, c))) ? _elm_lang$core$Result$Ok('isosceles') : _elm_lang$core$Result$Ok('scalene')))));
+					_elm_lang$core$List$tail(tri)))) > 0) ? _elm_lang$core$Result$Err('Violates inequality') : ((_elm_lang$core$Native_Utils.eq(a, b) && _elm_lang$core$Native_Utils.eq(b, c)) ? _elm_lang$core$Result$Ok('equilateral') : ((_elm_lang$core$Native_Utils.eq(a, b) || (_elm_lang$core$Native_Utils.eq(b, c) || _elm_lang$core$Native_Utils.eq(a, c))) ? _elm_lang$core$Result$Ok('isosceles') : _elm_lang$core$Result$Ok('scalene')))));
 	});

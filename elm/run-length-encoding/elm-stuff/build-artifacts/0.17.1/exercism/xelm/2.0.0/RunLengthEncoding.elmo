@@ -1,7 +1,98 @@
+var _exercism$xelm$RunLengthEncoding$decode$$ = function (match) {
+	var $char = A2(
+		_elm_lang$core$Maybe$withDefault,
+		'',
+		_elm_lang$core$List$head(
+			A2(
+				_elm_lang$core$List$map,
+				function (_) {
+					return _.match;
+				},
+				A3(
+					_elm_lang$core$Regex$find,
+					_elm_lang$core$Regex$AtMost(1),
+					_elm_lang$core$Regex$regex('[^0-9]'),
+					match))));
+	var n = A2(
+		_elm_lang$core$Maybe$withDefault,
+		1,
+		_elm_lang$core$Result$toMaybe(
+			_elm_lang$core$String$toInt(
+				A2(
+					_elm_lang$core$Maybe$withDefault,
+					'1',
+					_elm_lang$core$List$head(
+						A2(
+							_elm_lang$core$List$map,
+							function (_) {
+								return _.match;
+							},
+							A3(
+								_elm_lang$core$Regex$find,
+								_elm_lang$core$Regex$AtMost(1),
+								_elm_lang$core$Regex$regex('[0-9]+'),
+								match)))))));
+	return A2(_elm_lang$core$String$repeat, n, $char);
+};
+var _exercism$xelm$RunLengthEncoding$decode$ = function (matches) {
+	var _p0 = matches;
+	if (_p0.ctor === '[]') {
+		return '';
+	} else {
+		return A2(
+			_elm_lang$core$Basics_ops['++'],
+			_exercism$xelm$RunLengthEncoding$decode$$(_p0._0),
+			_exercism$xelm$RunLengthEncoding$decode$(_p0._1));
+	}
+};
 var _exercism$xelm$RunLengthEncoding$decode = function (str) {
-	return '';
+	return _exercism$xelm$RunLengthEncoding$decode$(
+		A2(
+			_elm_lang$core$List$map,
+			function (_) {
+				return _.match;
+			},
+			A3(
+				_elm_lang$core$Regex$find,
+				_elm_lang$core$Regex$All,
+				_elm_lang$core$Regex$regex('([0-9]+[^0-9])|.'),
+				str)));
+};
+var _exercism$xelm$RunLengthEncoding$encode$$ = function (match) {
+	var length = _elm_lang$core$String$length(match);
+	var $char = A3(_elm_lang$core$String$slice, 0, 1, match);
+	var _p1 = _elm_lang$core$Native_Utils.cmp(length, 1) > 0;
+	if (_p1 === true) {
+		return A2(
+			_elm_lang$core$Basics_ops['++'],
+			_elm_lang$core$Basics$toString(length),
+			$char);
+	} else {
+		return $char;
+	}
+};
+var _exercism$xelm$RunLengthEncoding$encode$ = function (matches) {
+	var _p2 = matches;
+	if (_p2.ctor === '[]') {
+		return '';
+	} else {
+		return A2(
+			_elm_lang$core$Basics_ops['++'],
+			_exercism$xelm$RunLengthEncoding$encode$$(_p2._0),
+			_exercism$xelm$RunLengthEncoding$encode$(_p2._1));
+	}
 };
 var _exercism$xelm$RunLengthEncoding$encode = function (str) {
-	return '';
+	return _exercism$xelm$RunLengthEncoding$encode$(
+		A2(
+			_elm_lang$core$List$map,
+			function (_) {
+				return _.match;
+			},
+			A3(
+				_elm_lang$core$Regex$find,
+				_elm_lang$core$Regex$All,
+				_elm_lang$core$Regex$regex('([^0-9])\\1*'),
+				str)));
 };
 var _exercism$xelm$RunLengthEncoding$version = 2;

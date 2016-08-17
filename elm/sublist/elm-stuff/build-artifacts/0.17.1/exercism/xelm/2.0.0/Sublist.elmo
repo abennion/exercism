@@ -1,0 +1,39 @@
+var _exercism$xelm$Sublist$version = 2;
+var _exercism$xelm$Sublist$isSublist = F2(
+	function (xs, ys) {
+		isSublist:
+		while (true) {
+			if (_elm_lang$core$Native_Utils.eq(
+				xs,
+				A2(
+					_elm_lang$core$List$take,
+					_elm_lang$core$List$length(xs),
+					ys))) {
+				return true;
+			} else {
+				if (_elm_lang$core$Native_Utils.cmp(
+					_elm_lang$core$List$length(xs),
+					_elm_lang$core$List$length(ys)) < 0) {
+					var _v0 = xs,
+						_v1 = A2(
+						_elm_lang$core$Maybe$withDefault,
+						_elm_lang$core$Native_List.fromArray(
+							[]),
+						_elm_lang$core$List$tail(ys));
+					xs = _v0;
+					ys = _v1;
+					continue isSublist;
+				} else {
+					return false;
+				}
+			}
+		}
+	});
+var _exercism$xelm$Sublist$Unequal = {ctor: 'Unequal'};
+var _exercism$xelm$Sublist$Superlist = {ctor: 'Superlist'};
+var _exercism$xelm$Sublist$Sublist = {ctor: 'Sublist'};
+var _exercism$xelm$Sublist$Equal = {ctor: 'Equal'};
+var _exercism$xelm$Sublist$sublist = F2(
+	function (xs, ys) {
+		return _elm_lang$core$Native_Utils.eq(xs, ys) ? _exercism$xelm$Sublist$Equal : (A2(_exercism$xelm$Sublist$isSublist, xs, ys) ? _exercism$xelm$Sublist$Sublist : (A2(_exercism$xelm$Sublist$isSublist, ys, xs) ? _exercism$xelm$Sublist$Superlist : _exercism$xelm$Sublist$Unequal));
+	});
