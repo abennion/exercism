@@ -1,28 +1,32 @@
 module PhoneNumber exposing (..)
 
 import String
-import Regex exposing (..)
+import Char
 
 
 getNumber : String -> Maybe String
-getNumber str =
-  let
-    clean = replace All (regex "[^0-9]") (\_ -> "") str
-    n = String.length clean
-  in
-    if n == 10 then
-      Just clean
+getNumber number =
+  number
+    |> String.filter Char.isDigit
+    |> (\s -> (s, String.length s))
+    |> validate
 
-    else if n == 11 && String.slice 0 1 clean == "1" then
-      Just (String.dropLeft 1 clean)
 
-    else
-      Nothing
+validate : (String, Int) -> Maybe String
+validate (number, length) =
+  if length == 10 then
+    Just number
+
+  else if length == 11 && String.startsWith "1" number then
+    Just (String.dropLeft 1 number)
+
+  else
+    Nothing
 
 
 prettyPrint : String -> Maybe String
-prettyPrint str =
-  case getNumber str of
+prettyPrint number =
+  case getNumber number of
     Just num ->
       Just ("(" ++ (String.slice 0 3 num) ++ ") " 
         ++ (String.slice 3 6 num) ++ "-" ++ (String.slice 6 10 num))

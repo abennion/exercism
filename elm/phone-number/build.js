@@ -8013,177 +8013,45 @@ var _elm_community$elm_test$ElmTest$equals = _elm_community$elm_test$ElmTest_Tes
 var _elm_community$elm_test$ElmTest$defaultTest = _elm_community$elm_test$ElmTest_Test$defaultTest;
 var _elm_community$elm_test$ElmTest$test = _elm_community$elm_test$ElmTest_Test$test;
 
-//import Maybe, Native.List //
-
-var _elm_lang$core$Native_Regex = function() {
-
-function escape(str)
-{
-	return str.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&');
-}
-function caseInsensitive(re)
-{
-	return new RegExp(re.source, 'gi');
-}
-function regex(raw)
-{
-	return new RegExp(raw, 'g');
-}
-
-function contains(re, string)
-{
-	return string.match(re) !== null;
-}
-
-function find(n, re, str)
-{
-	n = n.ctor === 'All' ? Infinity : n._0;
-	var out = [];
-	var number = 0;
-	var string = str;
-	var lastIndex = re.lastIndex;
-	var prevLastIndex = -1;
-	var result;
-	while (number++ < n && (result = re.exec(string)))
-	{
-		if (prevLastIndex === re.lastIndex) break;
-		var i = result.length - 1;
-		var subs = new Array(i);
-		while (i > 0)
-		{
-			var submatch = result[i];
-			subs[--i] = submatch === undefined
-				? _elm_lang$core$Maybe$Nothing
-				: _elm_lang$core$Maybe$Just(submatch);
-		}
-		out.push({
-			match: result[0],
-			submatches: _elm_lang$core$Native_List.fromArray(subs),
-			index: result.index,
-			number: number
-		});
-		prevLastIndex = re.lastIndex;
-	}
-	re.lastIndex = lastIndex;
-	return _elm_lang$core$Native_List.fromArray(out);
-}
-
-function replace(n, re, replacer, string)
-{
-	n = n.ctor === 'All' ? Infinity : n._0;
-	var count = 0;
-	function jsReplacer(match)
-	{
-		if (count++ >= n)
-		{
-			return match;
-		}
-		var i = arguments.length - 3;
-		var submatches = new Array(i);
-		while (i > 0)
-		{
-			var submatch = arguments[i];
-			submatches[--i] = submatch === undefined
-				? _elm_lang$core$Maybe$Nothing
-				: _elm_lang$core$Maybe$Just(submatch);
-		}
-		return replacer({
-			match: match,
-			submatches: _elm_lang$core$Native_List.fromArray(submatches),
-			index: arguments[i - 1],
-			number: count
-		});
-	}
-	return string.replace(re, jsReplacer);
-}
-
-function split(n, re, str)
-{
-	n = n.ctor === 'All' ? Infinity : n._0;
-	if (n === Infinity)
-	{
-		return _elm_lang$core$Native_List.fromArray(str.split(re));
-	}
-	var string = str;
-	var result;
-	var out = [];
-	var start = re.lastIndex;
-	while (n--)
-	{
-		if (!(result = re.exec(string))) break;
-		out.push(string.slice(start, result.index));
-		start = re.lastIndex;
-	}
-	out.push(string.slice(start));
-	return _elm_lang$core$Native_List.fromArray(out);
-}
-
-return {
-	regex: regex,
-	caseInsensitive: caseInsensitive,
-	escape: escape,
-
-	contains: F2(contains),
-	find: F3(find),
-	replace: F4(replace),
-	split: F3(split)
+var _exercism$xelm$PhoneNumber$validate = function (_p0) {
+	var _p1 = _p0;
+	var _p3 = _p1._0;
+	var _p2 = _p1._1;
+	return _elm_lang$core$Native_Utils.eq(_p2, 10) ? _elm_lang$core$Maybe$Just(_p3) : ((_elm_lang$core$Native_Utils.eq(_p2, 11) && A2(_elm_lang$core$String$startsWith, '1', _p3)) ? _elm_lang$core$Maybe$Just(
+		A2(_elm_lang$core$String$dropLeft, 1, _p3)) : _elm_lang$core$Maybe$Nothing);
 };
-
-}();
-
-var _elm_lang$core$Regex$split = _elm_lang$core$Native_Regex.split;
-var _elm_lang$core$Regex$replace = _elm_lang$core$Native_Regex.replace;
-var _elm_lang$core$Regex$find = _elm_lang$core$Native_Regex.find;
-var _elm_lang$core$Regex$contains = _elm_lang$core$Native_Regex.contains;
-var _elm_lang$core$Regex$caseInsensitive = _elm_lang$core$Native_Regex.caseInsensitive;
-var _elm_lang$core$Regex$regex = _elm_lang$core$Native_Regex.regex;
-var _elm_lang$core$Regex$escape = _elm_lang$core$Native_Regex.escape;
-var _elm_lang$core$Regex$Match = F4(
-	function (a, b, c, d) {
-		return {match: a, submatches: b, index: c, number: d};
-	});
-var _elm_lang$core$Regex$Regex = {ctor: 'Regex'};
-var _elm_lang$core$Regex$AtMost = function (a) {
-	return {ctor: 'AtMost', _0: a};
+var _exercism$xelm$PhoneNumber$getNumber = function (number) {
+	return _exercism$xelm$PhoneNumber$validate(
+		function (s) {
+			return {
+				ctor: '_Tuple2',
+				_0: s,
+				_1: _elm_lang$core$String$length(s)
+			};
+		}(
+			A2(_elm_lang$core$String$filter, _elm_lang$core$Char$isDigit, number)));
 };
-var _elm_lang$core$Regex$All = {ctor: 'All'};
-
-var _exercism$xelm$PhoneNumber$getNumber = function (str) {
-	var clean = A4(
-		_elm_lang$core$Regex$replace,
-		_elm_lang$core$Regex$All,
-		_elm_lang$core$Regex$regex('[^0-9]'),
-		function (_p0) {
-			return '';
-		},
-		str);
-	var n = _elm_lang$core$String$length(clean);
-	return _elm_lang$core$Native_Utils.eq(n, 10) ? _elm_lang$core$Maybe$Just(clean) : ((_elm_lang$core$Native_Utils.eq(n, 11) && _elm_lang$core$Native_Utils.eq(
-		A3(_elm_lang$core$String$slice, 0, 1, clean),
-		'1')) ? _elm_lang$core$Maybe$Just(
-		A2(_elm_lang$core$String$dropLeft, 1, clean)) : _elm_lang$core$Maybe$Nothing);
-};
-var _exercism$xelm$PhoneNumber$prettyPrint = function (str) {
-	var _p1 = _exercism$xelm$PhoneNumber$getNumber(str);
-	if (_p1.ctor === 'Just') {
-		var _p2 = _p1._0;
+var _exercism$xelm$PhoneNumber$prettyPrint = function (number) {
+	var _p4 = _exercism$xelm$PhoneNumber$getNumber(number);
+	if (_p4.ctor === 'Just') {
+		var _p5 = _p4._0;
 		return _elm_lang$core$Maybe$Just(
 			A2(
 				_elm_lang$core$Basics_ops['++'],
 				'(',
 				A2(
 					_elm_lang$core$Basics_ops['++'],
-					A3(_elm_lang$core$String$slice, 0, 3, _p2),
+					A3(_elm_lang$core$String$slice, 0, 3, _p5),
 					A2(
 						_elm_lang$core$Basics_ops['++'],
 						') ',
 						A2(
 							_elm_lang$core$Basics_ops['++'],
-							A3(_elm_lang$core$String$slice, 3, 6, _p2),
+							A3(_elm_lang$core$String$slice, 3, 6, _p5),
 							A2(
 								_elm_lang$core$Basics_ops['++'],
 								'-',
-								A3(_elm_lang$core$String$slice, 6, 10, _p2)))))));
+								A3(_elm_lang$core$String$slice, 6, 10, _p5)))))));
 	} else {
 		return _elm_lang$core$Maybe$Nothing;
 	}
