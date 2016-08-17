@@ -1,98 +1,33 @@
-var _exercism$xelm$Series$slices$ = F2(
-	function (len, nums) {
-		var tail = function () {
-			var _p0 = nums;
-			if (_p0.ctor === '[]') {
-				return _elm_lang$core$Native_List.fromArray(
-					[]);
-			} else {
-				var _p2 = _p0._1;
-				var _p1 = _elm_lang$core$Native_Utils.cmp(
-					_elm_lang$core$List$length(_p2),
-					len) > -1;
-				if (_p1 === true) {
-					return _p2;
-				} else {
-					return _elm_lang$core$Native_List.fromArray(
-						[]);
-				}
-			}
-		}();
-		var slice = A2(_elm_lang$core$List$take, len, nums);
+var _exercism$xelm$Series$sliceBy = F2(
+	function (n, xs) {
 		return (_elm_lang$core$Native_Utils.cmp(
-			_elm_lang$core$List$length(slice),
-			len) < 0) ? _elm_lang$core$Native_List.fromArray(
-			[
-				_elm_lang$core$Native_List.fromArray(
-				[])
-			]) : (_elm_lang$core$Native_Utils.eq(
-			tail,
-			_elm_lang$core$Native_List.fromArray(
-				[])) ? _elm_lang$core$Native_List.fromArray(
-			[slice]) : A2(
-			_elm_lang$core$List$append,
-			_elm_lang$core$Native_List.fromArray(
-				[slice]),
-			A2(_exercism$xelm$Series$slices$, len, tail)));
+			n,
+			_elm_lang$core$List$length(xs)) > 0) ? _elm_lang$core$Native_List.fromArray(
+			[]) : A2(
+			_elm_lang$core$List_ops['::'],
+			A2(_elm_lang$core$List$take, n, xs),
+			A2(
+				_exercism$xelm$Series$sliceBy,
+				n,
+				A2(_elm_lang$core$List$drop, 1, xs)));
 	});
-var _exercism$xelm$Series$toInts = function (str) {
-	return A2(
-		_elm_lang$core$List$map,
-		function (_p3) {
-			return A2(
-				_elm_lang$core$Maybe$withDefault,
-				0,
-				_elm_lang$core$Result$toMaybe(
-					_elm_lang$core$String$toInt(_p3)));
-		},
-		A2(_elm_lang$core$String$split, '', str));
-};
 var _exercism$xelm$Series$slices = F2(
-	function (len, str) {
-		var invalidChar = A2(
-			_elm_lang$core$Maybe$withDefault,
-			'',
-			_elm_lang$core$List$head(
+	function (n, str) {
+		return _elm_lang$core$Native_Utils.eq(n, 0) ? _elm_lang$core$Result$Err('Invalid size: 0') : A2(
+			_elm_lang$core$Result$map,
+			_exercism$xelm$Series$sliceBy(n),
+			A3(
+				_elm_lang$core$List$foldr,
+				_elm_lang$core$Result$map2(
+					F2(
+						function (x, y) {
+							return A2(_elm_lang$core$List_ops['::'], x, y);
+						})),
+				_elm_lang$core$Result$Ok(
+					_elm_lang$core$Native_List.fromArray(
+						[])),
 				A2(
 					_elm_lang$core$List$map,
-					function (_) {
-						return _.match;
-					},
-					A3(
-						_elm_lang$core$Regex$find,
-						_elm_lang$core$Regex$AtMost(1),
-						_elm_lang$core$Regex$regex('[^0-9]'),
-						str))));
-		if (_elm_lang$core$Native_Utils.eq(len, 0)) {
-			return _elm_lang$core$Result$Err(
-				A2(
-					_elm_lang$core$Basics_ops['++'],
-					'Invalid size: ',
-					_elm_lang$core$Basics$toString(len)));
-		} else {
-			if (_elm_lang$core$Native_Utils.cmp(
-				_elm_lang$core$String$length(str),
-				len) < 0) {
-				return _elm_lang$core$Result$Ok(
-					_elm_lang$core$Native_List.fromArray(
-						[]));
-			} else {
-				if (!_elm_lang$core$Native_Utils.eq(invalidChar, '')) {
-					var _p4 = _elm_lang$core$String$toInt(invalidChar);
-					if (_p4.ctor === 'Err') {
-						return _elm_lang$core$Result$Err(_p4._0);
-					} else {
-						return _elm_lang$core$Result$Ok(
-							_elm_lang$core$Native_List.fromArray(
-								[]));
-					}
-				} else {
-					return _elm_lang$core$Result$Ok(
-						A2(
-							_exercism$xelm$Series$slices$,
-							len,
-							_exercism$xelm$Series$toInts(str)));
-				}
-			}
-		}
+					_elm_lang$core$String$toInt,
+					A2(_elm_lang$core$String$split, '', str))));
 	});
