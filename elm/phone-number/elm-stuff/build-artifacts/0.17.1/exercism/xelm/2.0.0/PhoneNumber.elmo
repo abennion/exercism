@@ -1,0 +1,40 @@
+var _exercism$xelm$PhoneNumber$getNumber = function (str) {
+	var clean = A4(
+		_elm_lang$core$Regex$replace,
+		_elm_lang$core$Regex$All,
+		_elm_lang$core$Regex$regex('[^0-9]'),
+		function (_p0) {
+			return '';
+		},
+		str);
+	var n = _elm_lang$core$String$length(clean);
+	return _elm_lang$core$Native_Utils.eq(n, 10) ? _elm_lang$core$Maybe$Just(clean) : ((_elm_lang$core$Native_Utils.eq(n, 11) && _elm_lang$core$Native_Utils.eq(
+		A3(_elm_lang$core$String$slice, 0, 1, clean),
+		'1')) ? _elm_lang$core$Maybe$Just(
+		A2(_elm_lang$core$String$dropLeft, 1, clean)) : _elm_lang$core$Maybe$Nothing);
+};
+var _exercism$xelm$PhoneNumber$prettyPrint = function (str) {
+	var _p1 = _exercism$xelm$PhoneNumber$getNumber(str);
+	if (_p1.ctor === 'Just') {
+		var _p2 = _p1._0;
+		return _elm_lang$core$Maybe$Just(
+			A2(
+				_elm_lang$core$Basics_ops['++'],
+				'(',
+				A2(
+					_elm_lang$core$Basics_ops['++'],
+					A3(_elm_lang$core$String$slice, 0, 3, _p2),
+					A2(
+						_elm_lang$core$Basics_ops['++'],
+						') ',
+						A2(
+							_elm_lang$core$Basics_ops['++'],
+							A3(_elm_lang$core$String$slice, 3, 6, _p2),
+							A2(
+								_elm_lang$core$Basics_ops['++'],
+								'-',
+								A3(_elm_lang$core$String$slice, 6, 10, _p2)))))));
+	} else {
+		return _elm_lang$core$Maybe$Nothing;
+	}
+};
