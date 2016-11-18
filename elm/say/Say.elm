@@ -3,9 +3,13 @@ module Say exposing (say, SayError(..))
 
 import List
 import String
+import Dict
+import Maybe
 
 
-type SayError = Negative | TooLarge
+type SayError =
+  Negative
+  | TooLarge
 
 
 english =
@@ -32,7 +36,7 @@ english =
     , (19, "nineteen")
     , (20, "twenty")
     , (30, "thirty")
-    , (40, "fourty")
+    , (40, "forty")
     , (50, "fifty")
     , (60, "sixty")
     , (70, "seventy")
@@ -42,61 +46,92 @@ english =
     , (1000, "thousand")
     , (1000000, "million")
     , (1000000000, "billion")
-    , (1000000000000, "trillion")
     ]
 
 
-translate num =
+--TODO: this should take a number of any size, translate a chunk of it,
+-- and then recursively handle the rest...
+
+translate : Dict.Dict Int String -> Int -> String
+translate lang num =
   let
+    hundreds = (toFloat num) / 100 |> floor
     tens = num % 100
-    hundreds = num - tens
     ones = tens % 10
 
-    -- if 123, then 3
-    onesText =
-      case ones > 0 of
-        True ->
-          Dict.get ones english
-
-        False ->
-          ""
-
     tensText =
-      case Dict.member tens english of
-        True ->
-          Dict.get tens english
-            
+      if tens == 0 then
+        ""
 
+      else if tens < 20 || tens % 10 == 0 then
+        Dict.get tens lang |> Maybe.withDefault ""
 
-        False ->
-          " " ++ Dict.get ones english
+      else
+        (Dict.get (tens - ones) lang |> Maybe.withDefault "")
+          ++ "-"
+          ++ (Dict.get ones lang |> Maybe.withDefault "")
+
+    hundredsText =
+      (Dict.get hundreds lang |> Maybe.withDefault "")
+        ++ " "
+        ++ (Dict.get 100 lang |> Maybe.withDefault "")
 
   in
     if hundreds > 0 then
-      (toString (Dict.get hundreds english)) ++ " hundred" ++ (translate tens)
-    else if num > 9 then
-      if Dict.member tens english then
-        (toString (Dict.get tens english)) ++ "-" -- that's conditional...
+      if tens > 0 then
+        hundredsText ++ " and " ++ tensText
+
       else
+        hundredsText
+
+    else
+      tensText
 
 
-toText : Int -> List String
-toText num =
+chunk : Int -> Int -> List Int
+chunk len num =
   let
-    x = num % 1000
-    rest = (toFloat (num - x)) / 1000 |> floor
+    n = 10^len
+    x = num % n
+    rest = (toFloat (num - x)) / n |> floor
   in
-    case num >= 1000 of
-      False ->
-        [text]
-
+    case num >= n of
       True ->
-        text :: toText rest
+        List.append (chunk len rest) [x]
+
+      False ->
+        [x]
 
 
+say : Int -> Result SayError String
 say num =
   let
-    -- generate List.map (\n -> 10^(n*3)) [1..{some len}] and then hash
-    text = List.map2 (\a b -> a ++ " " ++ b |> String.trim) ["million", "thousand", ""] (translate num)
+    lang = english
+    nums = chunk 3 num |> List.reverse
+    qualifiers =
+      [1..((List.length nums) - 1)]
+        |> List.map (\n -> Dict.get (1000^n) lang |> Maybe.withDefault "")
+    text =
+      case nums of
+        head::tail ->
+          List.map2 (\a b -> if a /= 0 then (translate lang a) ++ " " ++ b else (translate lang a) |> String.trim) tail qualifiers
+            |> List.append [(\a -> if num > 99 && a > 0 && a < 100 then "and " ++ (translate lang a) else (translate lang a)) head]
+            |> List.foldr (\r a -> String.trim (a ++ " " ++ r)) ""
+            |> String.trim
+
+        _ ->
+          ""
   in
-    Ok (String.join " " text)
+    if num < 0 then
+      Err Negative
+
+    else if num >= 1000^4 then
+      Err TooLarge
+
+    else if num == 0 then
+      Ok (Dict.get num lang |> Maybe.withDefault "")
+
+    else
+      Ok text
+
+
