@@ -22,16 +22,15 @@ numerals =
         ]
 
 
-toRoman' : Int -> String -> (String, Int) -> (String, Int)
+toRoman' : Int -> String -> ( String, Int ) -> ( String, Int )
 toRoman' k v r =
     let
-        x = snd r
-        count = x // k 
-        n = x % k 
+        x =
+            snd r
     in
-        (fst r ++ String.repeat count v, n)
+        ( fst r ++ String.repeat (x // k) v, x % k )
 
 
 toRoman : Int -> String
 toRoman x =
-    fst (Dict.foldr toRoman' ("", x) numerals)
+    fst (Dict.foldr toRoman' ( "", x ) numerals)
