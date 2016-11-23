@@ -25,10 +25,10 @@ numerals =
 toRoman' : Int -> String -> ( String, Int ) -> ( String, Int )
 toRoman' k v r =
     let
-        x =
-            snd r
+        ( s, x ) =
+            r
     in
-        ( fst r ++ String.repeat (x // k) v, x % k )
+        ( s ++ String.repeat (x // k) v, x % k )
 
 
 toRoman : Int -> String
