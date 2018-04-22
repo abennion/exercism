@@ -16,5 +16,5 @@ var orbit = map[Planet]float64{
 
 // Age does a thing
 func Age(seconds float64, planet Planet) float64 {
-	return float64(seconds) / (orbit[planet] * 31557600)
+	return seconds / (orbit[planet] * 31557600)
 }
