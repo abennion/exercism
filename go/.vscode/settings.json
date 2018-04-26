@@ -4,5 +4,12 @@
     "go.testFlags": [
         "-bench",
         "."
-    ]
+    ],
+    "files.watcherExclude": {
+        "**/.git/objects/**": true,
+        "**/.git/subtree-cache/**": true,
+        "**/node_modules/**": true,
+        "**/.go/**": true,
+    },
+    "editor.renderWhitespace": "all"
 }
