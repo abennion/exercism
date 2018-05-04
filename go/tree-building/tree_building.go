@@ -16,7 +16,20 @@ type Node struct {
 	Children []*Node
 }
 
-// Build creates a parent-child tree of nodes
+// Lookup ...
+type Lookup map[int]*Node
+
+// LookupNode ...
+func LookupNode(ID int, lookup Lookup) *Node {
+	if n, ok := lookup[ID]; ok {
+		return n
+	}
+	node := &Node{ID: ID}
+	lookup[ID] = node
+	return node
+}
+
+// Build a tree of Nodes from an unordered list of parent-child records.
 func Build(records []Record) (*Node, error) {
 	if len(records) == 0 {
 		return nil, nil
@@ -24,29 +37,15 @@ func Build(records []Record) (*Node, error) {
 
 	lookup := make(map[int]*Node)
 	var root *Node
-
-	fmt.Println("===========================")
-	fmt.Println("records", records)
-
 	var ids []int
 
 	for _, r := range records {
 		if r.ID < r.Parent {
-			return nil, fmt.Errorf("invalid parent")
+			return nil, fmt.Errorf("higher id parent of lower id")
 		}
 
-		// use this to determine dups and non-continuous
 		ids = append(ids, r.ID)
-
-		var node *Node
-
-		// lookup the node
-		if n, ok := lookup[r.ID]; ok {
-			node = n
-		} else {
-			node = &Node{ID: r.ID}
-			lookup[r.ID] = node
-		}
+		node := LookupNode(r.ID, lookup)
 
 		if r.ID == r.Parent {
 			if root != nil {
@@ -54,29 +53,16 @@ func Build(records []Record) (*Node, error) {
 			}
 			root = node
 		} else {
-			var parent *Node
-
-			// lookup the parent
-			if n, ok := lookup[r.Parent]; ok {
-				parent = n
-			} else {
-				parent = &Node{ID: r.Parent}
-				lookup[r.Parent] = parent
-			}
-
-			fmt.Println("parent:", parent, "node:", node)
+			parent := LookupNode(r.Parent, lookup)
 
 			// append node to parent
 			appended := false
-
 			l := len(parent.Children)
 			for i := 0; i < l; i++ {
 				child := parent.Children[i]
-				fmt.Println("-----------------------------------")
-				fmt.Println("i:", i, "node:", node, "child:", child, "children:", parent.Children)
-				// if node.ID > 100 {
-				// 	return nil, fmt.Errorf("fucked up")
-				// }
+				if node.ID > 100 {
+					return nil, fmt.Errorf("fucked up")
+				}
 				if node.ID == child.ID {
 					return nil, fmt.Errorf("duplicate node")
 				}
@@ -95,11 +81,9 @@ func Build(records []Record) (*Node, error) {
 
 	// non-continuous means, we're missing an ID in order
 	sort.Ints(ids)
-	fmt.Println(ids[len(ids)-1], len(ids))
 	if ids[len(ids)-1] > len(ids)-1 {
 		return nil, fmt.Errorf("non-continuous")
 	}
-	fmt.Println("lookup", lookup)
 
 	if root == nil || root.ID != 0 {
 		return nil, fmt.Errorf("no root node")
