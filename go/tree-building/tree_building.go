@@ -19,7 +19,7 @@ type Node struct {
 // NodeMap is a map of Nodes by ID.
 type NodeMap map[int]*Node
 
-// GetNode returns a Node found in the specified NodeMap or a new Node.
+// GetNode either returns a Node found in the specified NodeMap or a new Node.
 func GetNode(ID int, nodes NodeMap) *Node {
 	if n, ok := nodes[ID]; ok {
 		return n
