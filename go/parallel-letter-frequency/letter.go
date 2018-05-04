@@ -1,14 +1,22 @@
 package letter
 
+// FrequencyProducer ...
+func FrequencyProducer(ss []string, c chan FreqMap) {
+	for _, s := range ss {
+		c <- Frequency(s)
+	}
+	close(c)
+}
+
 // ConcurrentFrequency ...
 func ConcurrentFrequency(ss []string) FreqMap {
-	out := make(chan FreqMap)
-	for _, s := range ss {
-		go func() {
-			out <- Frequency(s)
-		}()
+	c := make(chan FreqMap)
+	res := FreqMap{}
+	go FrequencyProducer(ss, c)
+	for fm := range c {
+		for k, v := range fm {
+			res[k] += v
+		}
 	}
-	for _, m := range out {
-
-	}
+	return res
 }
