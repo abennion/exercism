@@ -77,12 +77,8 @@ func (teams *Teams) Rankings() []*Team {
 	for _, t := range teams.Teams {
 		j := 0
 		for j = 0; j < len(ts); j++ {
-			// if empty or points are greater
-			if ts[j] == nil || t.P > ts[j].P {
-				break
-			}
-			// if points equal and name comes before
-			if t.P == ts[j].P && t.Name < ts[j].Name {
+			// if points greater or tied and in alphabetical order
+			if t.P > ts[j].P || (t.P == ts[j].P && t.Name < ts[j].Name) {
 				break
 			}
 		}
