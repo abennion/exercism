@@ -18,36 +18,17 @@ type Teams struct {
 	Teams map[string]*Team
 }
 
-// NewTeam returns a new value of type Team.
-func NewTeam(name string) *Team {
-	t := new(Team)
-	t.Name = name
-	return t
-}
-
-// Won updates a winning team's statistics.
-func (t *Team) Won() {
-	t.MP++
-	t.W++
-	t.P += 3
-}
-
-// Lost updates a losing team's statistics.
-func (t *Team) Lost() {
-	t.MP++
-	t.L++
-}
-
-// Tied updates a tied team's statistics.
-func (t *Team) Tied() {
-	t.MP++
-	t.D++
-	t.P++
-}
-
-// ToString returns a string representation of a team's statistics
-func (t *Team) ToString() string {
-	return fmt.Sprintf("%-30v | %2v | %2v | %2v | %2v | %2v", t.Name, t.MP, t.W, t.D, t.L, t.P)
+// Tally writes a string representing the tournament results to the given writer.
+func Tally(r io.Reader, w io.Writer) error {
+	teams := NewTeams()
+	scanner := bufio.NewScanner(r)
+	for scanner.Scan() {
+		if err := teams.ParseResult(scanner.Text()); err != nil {
+			return err
+		}
+	}
+	io.WriteString(w, teams.ToString())
+	return scanner.Err()
 }
 
 // NewTeams returns a new value of type Teams.
@@ -65,8 +46,9 @@ func (teams *Teams) ParseResult(result string) error {
 	}
 	ss := strings.Split(result, ";")
 	if len(ss) != 3 {
-		return fmt.Errorf("invalid result")
+		return fmt.Errorf("tournament: invalid result")
 	}
+	// if they don't exist, create new teams
 	if _, ok := teams.Teams[ss[0]]; !ok {
 		teams.Teams[ss[0]] = NewTeam(ss[0])
 	}
@@ -75,22 +57,22 @@ func (teams *Teams) ParseResult(result string) error {
 	}
 	switch ss[2] {
 	case "win":
-		teams.Teams[ss[0]].Won()
-		teams.Teams[ss[1]].Lost()
+		teams.Teams[ss[0]].Win()
+		teams.Teams[ss[1]].Loss()
 	case "draw":
-		teams.Teams[ss[0]].Tied()
-		teams.Teams[ss[1]].Tied()
+		teams.Teams[ss[0]].Draw()
+		teams.Teams[ss[1]].Draw()
 	case "loss":
-		teams.Teams[ss[0]].Lost()
-		teams.Teams[ss[1]].Won()
+		teams.Teams[ss[0]].Loss()
+		teams.Teams[ss[1]].Win()
 	default:
-		return fmt.Errorf("invalid contest outcome")
+		return fmt.Errorf("tournament: invalid contest outcome")
 	}
 	return nil
 }
 
-// ToSlice returns a slice of Teams ranked by standings.
-func (teams *Teams) ToSlice() []*Team {
+// Rankings returns a slice of Teams in order of ranking.
+func (teams *Teams) Rankings() []*Team {
 	var ts []*Team
 	for _, t := range teams.Teams {
 		j := 0
@@ -113,7 +95,7 @@ func (teams *Teams) ToSlice() []*Team {
 
 // ToString returns a string representation of the tournament's results.
 func (teams *Teams) ToString() string {
-	ts := teams.ToSlice()
+	ts := teams.Rankings()
 	s := fmt.Sprintln("Team                           | MP |  W |  D |  L |  P")
 	for _, t := range ts {
 		s += fmt.Sprintln(t.ToString())
@@ -121,15 +103,34 @@ func (teams *Teams) ToString() string {
 	return s
 }
 
-// Tally writes a string representing the tournament results to the given writer.
-func Tally(r io.Reader, w io.Writer) error {
-	teams := NewTeams()
-	scanner := bufio.NewScanner(r)
-	for scanner.Scan() {
-		if err := teams.ParseResult(scanner.Text()); err != nil {
-			return err
-		}
-	}
-	io.WriteString(w, teams.ToString())
-	return scanner.Err()
+// NewTeam returns a new value of type Team.
+func NewTeam(name string) *Team {
+	t := new(Team)
+	t.Name = name
+	return t
+}
+
+// Win updates a winning team's statistics.
+func (t *Team) Win() {
+	t.MP++
+	t.W++
+	t.P += 3
+}
+
+// Loss updates a losing team's statistics.
+func (t *Team) Loss() {
+	t.MP++
+	t.L++
+}
+
+// Draw updates a tied team's statistics.
+func (t *Team) Draw() {
+	t.MP++
+	t.D++
+	t.P++
+}
+
+// ToString returns a string representation of a team's statistics
+func (t *Team) ToString() string {
+	return fmt.Sprintf("%-30v | %2v | %2v | %2v | %2v | %2v", t.Name, t.MP, t.W, t.D, t.L, t.P)
 }
