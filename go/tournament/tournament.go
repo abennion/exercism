@@ -89,30 +89,24 @@ func (teams *Teams) ParseResult(result string) error {
 	return nil
 }
 
-// ToSlice returns a slice of Teams.
+// ToSlice returns a slice of Teams ranked by standings.
 func (teams *Teams) ToSlice() []*Team {
-	ts := make([]*Team, len(teams.Teams))
-	i := 0
+	var ts []*Team
 	for _, t := range teams.Teams {
 		j := 0
 		for j = 0; j < len(ts); j++ {
-			if ts[j] == nil {
+			// if empty or points are greater
+			if ts[j] == nil || t.P > ts[j].P {
 				break
 			}
-			if t.P > ts[j].P {
+			// if points equal and name comes before
+			if t.P == ts[j].P && t.Name < ts[j].Name {
 				break
 			}
-			if t.P == ts[j].P {
-				if t.Name < ts[j].Name {
-					break
-				}
-			}
 		}
-		if i < len(ts) {
-			copy(ts[j+1:], ts[j:])
-		}
+		ts = append(ts, nil)
+		copy(ts[j+1:], ts[j:])
 		ts[j] = t
-		i++
 	}
 	return ts
 }
