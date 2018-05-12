@@ -1,38 +1,50 @@
 package robotname
 
-// const charset = "abcdefghijklmnopqrstuvwxyz" +
-// 	"ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
+import (
+	"math/rand"
+	"time"
+)
 
-// var seededRand *rand.Rand = rand.New(
-// 	rand.NewSource(time.Now().UnixNano()))
+const letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
 
-// func StringWithCharset(length int, charset string) string {
-// 	b := make([]byte, length)
-// 	for i := range b {
-// 		b[i] = charset[seededRand.Intn(len(charset))]
-// 	}
-// 	return string(b)
-// }
+const numbers = "0123456789"
 
-// func String(length int) string {
-// 	return StringWithCharset(length, charset)
-// }
+var seededRand = rand.New(rand.NewSource(time.Now().UnixNano()))
 
+// StringWithCharset returns a string of length from the given charset
+func StringWithCharset(length int, charset string) string {
+	b := make([]byte, length)
+	for i := range b {
+		b[i] = charset[seededRand.Intn(len(charset))]
+	}
+	return string(b)
+}
+
+// Robot type
 type Robot struct {
 	name  string
 	names map[string]struct{}
 }
 
-func (r Robot) Name() string {
+// Name returns the Robot's name
+func (r *Robot) Name() string {
+	if r.names == nil {
+		r.names = make(map[string]struct{})
+	}
 	if r.name == "" {
-		// new name
 		for {
-
+			name := StringWithCharset(2, letters) + StringWithCharset(3, numbers)
+			if _, ok := r.names[name]; !ok {
+				r.name = name
+				r.names[name] = struct{}{}
+				break
+			}
 		}
 	}
 	return r.name
 }
 
-func (r Robot) Reset() {
+// Reset the Robot's name
+func (r *Robot) Reset() {
 	r.name = ""
 }
