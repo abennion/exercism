@@ -18,7 +18,7 @@ type Teams struct {
 	Teams map[string]*Team
 }
 
-// NewTeam returns a new Team object.
+// NewTeam returns a new value of type Team.
 func NewTeam(name string) *Team {
 	t := new(Team)
 	t.Name = name
@@ -50,7 +50,7 @@ func (t *Team) ToString() string {
 	return fmt.Sprintf("%-30v | %2v | %2v | %2v | %2v | %2v", t.Name, t.MP, t.W, t.D, t.L, t.P)
 }
 
-// NewTeams returns a new Teams object.
+// NewTeams returns a new value of type Teams.
 func NewTeams() *Teams {
 	teams := new(Teams)
 	teams.Teams = make(map[string]*Team)
