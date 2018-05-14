@@ -11,5 +11,7 @@
         "**/node_modules/**": true,
         "**/.go/**": true,
     },
-    "editor.renderWhitespace": "all"
+    "editor.renderWhitespace": "all",
+    "go.lintTool": "golint",
+    "go.lintOnSave": "package"
 }
