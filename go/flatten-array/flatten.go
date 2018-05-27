@@ -1,22 +1,21 @@
 package flatten
 
 import (
-	"fmt"
 	"reflect"
 )
 
+// Flatten flattens a list.
+//
+// This one made me go and start reading The Go Programming Language.
 func Flatten(input interface{}) []interface{} {
-	s := reflect.ValueOf(input)
-	fmt.Println(s)
-	if s.Kind() != reflect.Slice {
-		return []interface{}{s}
+	res := []interface{}{}
+	switch v := reflect.ValueOf(input); v.Kind() {
+	case reflect.Slice:
+		for i := 0; i < v.Len(); i++ {
+			res = append(res, Flatten(v.Index(i).Interface())...)
+		}
+	case reflect.Int:
+		res = append(res, input)
 	}
-	res := []interface{}
-	for i := 0; i < len(s); i++ {
-		res = append(res, nil)
-		f = Flatten(s[i])
-		// append that to res
-
-	}
-	return resd
+	return res
 }
