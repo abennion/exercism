@@ -7,56 +7,76 @@ import (
 )
 
 const letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
-
 const numbers = "0123456789"
 
-var seededRand = rand.New(rand.NewSource(time.Now().UnixNano()))
-
-// Robot type
+// Robot represents a type of Robot.
 type Robot struct {
+	lk   sync.Mutex
 	name string
 }
 
-// RobotNames manages robot names.
-type RobotNames struct {
-	names map[string]bool
-	mux   sync.Mutex
+type names struct {
+	lk   sync.Mutex
+	seen map[string]bool
 }
 
-var robotNames = &RobotNames{names: make(map[string]bool)}
+type lockedRand struct {
+	lk sync.Mutex
+	r  *rand.Rand
+}
 
-// GenerateName returns a new and unique name.
-func (rn *RobotNames) GenerateName() (name string) {
-	rn.mux.Lock()
-	defer rn.mux.Unlock()
-	for {
-		name = rn.StringWithCharset(2, letters) + rn.StringWithCharset(3, numbers)
-		if _, ok := rn.names[name]; !ok {
-			break
-		}
-	}
-	rn.names[name] = true
+func (lr *lockedRand) Intn(n int) (i int) {
+	lr.lk.Lock()
+	i = lr.r.Intn(n)
+	lr.lk.Unlock()
 	return
 }
 
-// StringWithCharset returns a string of length from the given charset.
-func (rn *RobotNames) StringWithCharset(length int, charset string) string {
-	b := make([]byte, length)
-	for i := range b {
-		b[i] = charset[seededRand.Intn(len(charset))]
-	}
-	return string(b)
+var robotNames = &names{seen: make(map[string]bool)}
+var localRand *lockedRand
+
+func init() {
+	localRand = &lockedRand{r: rand.New(rand.NewSource(time.Now().UnixNano()))}
 }
 
-// Name returns the Robot's name.
-func (r *Robot) Name() string {
+// Name returns the name of the Robot.
+func (r *Robot) Name() (name string) {
+	r.lk.Lock()
 	if r.name == "" {
-		r.Reset()
+		r.name = robotNames.generateName()
 	}
-	return r.name
+	name = r.name
+	r.lk.Unlock()
+	return
 }
 
-// Reset the Robot's name.
+// Reset returns the Robot to factory settings.
 func (r *Robot) Reset() {
-	r.name = robotNames.GenerateName()
+	r.lk.Lock()
+	r.name = ""
+	r.lk.Unlock()
+}
+
+func (ns *names) generateName() (name string) {
+	for {
+		name = randString(2, letters) + randString(3, numbers)
+		ns.lk.Lock()
+		_, ok := ns.seen[name]
+		if !ok {
+			ns.seen[name] = true
+		}
+		ns.lk.Unlock()
+		if !ok {
+			break
+		}
+	}
+	return
+}
+
+func randString(length int, charset string) string {
+	bs := make([]byte, length)
+	for i := range bs {
+		bs[i] = charset[localRand.Intn(len(charset))]
+	}
+	return string(bs)
 }
