@@ -6,50 +6,56 @@ import (
 
 // Account represents a bank account.
 type Account struct {
-	bal int
-	mux sync.Mutex
+	balance int
+	closed  bool
+	mux     sync.Mutex
 }
 
-// Open a bank account.
-func Open(amt int) *Account {
-	if amt < 0 {
+// Open creates an account with the deposit amount.
+func Open(amount int) (a *Account) {
+	if amount < 0 {
 		return nil
 	}
-	a := new(Account)
-	a.bal = amt
-	return a
+	a = new(Account)
+	a.balance = amount
+	return
 }
 
 // Balance returns the balance of the account.
-func (a *Account) Balance() (bal int, ok bool) {
+func (a *Account) Balance() (balance int, ok bool) {
 	a.mux.Lock()
-	bal = a.bal
-	if bal > 0 {
+	if !a.closed {
+		balance = a.balance
 		ok = true
 	}
 	a.mux.Unlock()
-	return bal, ok
+	return
 }
 
 // Deposit adds the specified amount to the balance.
-func (a *Account) Deposit(amt int) (bal int, ok bool) {
+func (a *Account) Deposit(amount int) (balance int, ok bool) {
 	a.mux.Lock()
-	if a.bal > 0 {
-		a.bal += amt
-	}
-	bal = a.bal
-	if bal > 0 {
-		ok = true
+	if !a.closed {
+		balance = a.balance + amount
+		if balance >= 0 {
+			a.balance = balance
+			ok = true
+		} else {
+			balance = a.balance
+		}
 	}
 	a.mux.Unlock()
-	return bal, ok
+	return
 }
 
 // Close closes the account and pays out the balance.
-func (a *Account) Close() (pay int, ok bool) {
+func (a *Account) Close() (payout int, ok bool) {
 	a.mux.Lock()
-	pay = a.bal
-	a.bal = 0
+	if !a.closed {
+		payout = a.balance
+		a.closed = true
+		ok = true
+	}
 	a.mux.Unlock()
-	return pay, true
+	return
 }

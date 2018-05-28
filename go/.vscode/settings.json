@@ -1,6 +1,6 @@
 {
     "go.gopath": "${workspaceRoot}/.go",
-    "go.testOnSave": true,
+    "go.testOnSave": false,
     "go.testFlags": [
         "-bench",
         "."
