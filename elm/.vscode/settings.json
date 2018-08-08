@@ -4,5 +4,10 @@
         "**/.git/subtree-cache/**": true,
         "**/node_modules/**": true,
         "**/elm-stuff/**": true
-    }
+    },
+    "editor.rulers": [
+        80,
+        120
+    ],
+    "editor.formatOnSave": true
 }
