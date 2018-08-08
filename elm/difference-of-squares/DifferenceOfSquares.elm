@@ -3,14 +3,27 @@ module DifferenceOfSquares exposing (difference, squareOfSum, sumOfSquares)
 
 squareOfSum : Int -> Int
 squareOfSum n =
-    Debug.crash "Please implement this function"
+    List.range 1 n
+        |> List.foldr (+) 0
+        |> (\x -> x ^ 2)
+
+
+
+-- square =
+--     flip (^) 2
+-- squareOfSum =
+--     square << sum << range 1
+-- sumOfSquares =
+--     foldl ((+) << square) 0 << range 1
 
 
 sumOfSquares : Int -> Int
 sumOfSquares n =
-    Debug.crash "Please implement this function"
+    List.range 1 n
+        |> List.map (\x -> x ^ 2)
+        |> List.foldr (+) 0
 
 
 difference : Int -> Int
 difference n =
-    Debug.crash "Please implement this function"
+    squareOfSum n - sumOfSquares n
