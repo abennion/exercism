@@ -1,27 +1,28 @@
-class SimpleCipher {
-    private _key: string;
+enum ShiftType {
+    Encode = 1,
+    Decode = -1
+}
 
-    constructor(key: string = SimpleCipher.generateKey()) { 
+class SimpleCipher {
+    protected _key: string;
+
+    constructor(key: string = SimpleCipher.generateKey()) {
         this.key = key;
     }
 
-    static readonly chars = 'abcdefghijklmnopqrstuvwxyz';
-
-    static* randomChar() {
+    static * randomChar() {
         while (true) {
-            // yield SimpleCipher.chars.charAt(
-            //     Math.floor(Math.random() * SimpleCipher.chars.length));
             yield String.fromCharCode((Math.random() * 26 | 0) + 97);
         }
     }
 
     static generateKey(size: number = 100): string {
-        let res: string = '';
-        let gen = SimpleCipher.randomChar();
-        for (let i = 0; i < size; i++) {
-            res += gen.next().value as string;
+        const iter = SimpleCipher.randomChar();
+        let key: string = '';
+        while (key.length < size) {
+            key += iter.next().value;
         }
-        return res;
+        return key;
     }
 
     get key(): string {
@@ -34,25 +35,28 @@ class SimpleCipher {
         this._key = key;
     }
 
-    encode(s: string): string {
-        return s.replace(/./g, (v, i) => {
-            let k = this.key[i % this.key.length]; 
-            let o = v.charCodeAt(0) + k.charCodeAt(0) - 97;
-            if (o > 122)
-                o -= 26;
+    protected shift(msg: string, st: ShiftType): string {
+        return msg.replace(/./g, (e, i) => {
+            let k = this.key[i % this.key.length];
+            let x = st as number;
+            let o = e.charCodeAt(0) + (x * (k.charCodeAt(0) - 97));
+            switch (st) {
+                case ShiftType.Encode:
+                    if (o > 122)
+                        o -= 26;
+                    break;
+                default:
+                    if (o < 97)
+                        o += 26;
+                    break;
+            }
             return String.fromCharCode(o);
         });
     }
 
-    decode(s: string): string {
-        return s.replace(/./g, (v, i) => {
-            let k = this.key[i % this.key.length]; 
-            let o = v.charCodeAt(0) - (k.charCodeAt(0) - 97);
-            if (o < 97)
-                o += 26;
-            return String.fromCharCode(o);
-        });
-    }
+    encode = (msg: string) => this.shift(msg, ShiftType.Encode);
+
+    decode = (msg: string) => this.shift(msg, ShiftType.Decode);
 }
 
 export default SimpleCipher
